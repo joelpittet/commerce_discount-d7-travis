@@ -428,7 +428,7 @@ function commerce_discount_free_products(EntityDrupalWrapper $wrapper, $discount
 
             // Build the context array in order to attach the display path on
             // product level.
-            $context = array(
+            $context += array(
               'entity_id' => $node->nid,
               'entity_type' => 'node',
               'display_path' => $uri['path'],
