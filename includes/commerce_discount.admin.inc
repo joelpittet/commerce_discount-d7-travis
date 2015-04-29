@@ -139,7 +139,7 @@ function commerce_discount_form($form, &$form_state, CommerceDiscount $commerce_
     '#title' => t('Admin title'),
     '#type' => 'textfield',
     '#default_value' => $commerce_discount->label,
-    '#description' => t('Shown only on managment screens, not shown to customers.'),
+    '#description' => t('Shown only on management screens, not shown to customers.'),
     '#required' => TRUE,
   );
 
