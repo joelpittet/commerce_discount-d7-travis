@@ -124,6 +124,24 @@ function commerce_discount_remove_discount_components($price_wrapper) {
 }
 
 /**
+ * Implements hook_commerce_cart_order_empty().
+ */
+function commerce_discount_commerce_cart_order_empty($order) {
+  // Clean-up task to remove commerce_discount line items when cart is emptied.
+  $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
+  $line_items_to_delete = array();
+  foreach ($order_wrapper->commerce_line_items as $delta => $line_item_wrapper) {
+    if ($line_item_wrapper->getBundle() == 'commerce_discount') {
+      $line_items_to_delete[] = $line_item_wrapper->getIdentifier();
+      $order_wrapper->commerce_line_items->offsetUnset($delta);
+    }
+  }
+
+  // Delete line items.
+  commerce_line_item_delete_multiple($line_items_to_delete);
+}
+
+/**
  * Implements hook_commerce_shipping_method_collect_rates().
  *
  * Invoke the commerce_discount_free_shipping event and the
