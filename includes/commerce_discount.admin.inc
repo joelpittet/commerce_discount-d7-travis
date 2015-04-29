@@ -63,8 +63,10 @@ class CommerceDiscountUIController extends EntityDefaultUIController {
       'title' => 'List',
       'type' => MENU_DEFAULT_LOCAL_TASK,
     );
-    $items[$this->path . '/add']['title callback'] = 'commerce_discount_get_action_title';
-    $items[$this->path . '/import']['title callback'] = 'commerce_discount_get_action_title';
+    unset($items[$this->path . '/add']['title callback']);
+    unset($items[$this->path . '/import']['title callback']);
+    $items[$this->path . '/add']['title'] = t('Add discount');
+    $items[$this->path . '/import']['title'] = t('Import discount');
 
     $items[$this->path . '/settings'] = array(
       'title' => 'Settings',
@@ -112,18 +114,6 @@ function commerce_discount_overview_form() {
     $form['#attached']['css'][] = drupal_get_path('module', 'commerce_discount') . '/css/commerce_discount-rtl.css';
   }
   return $form;
-}
-
-/**
- * Gets the page/menu title for local action operations.
- */
-function commerce_discount_get_action_title($op, $entity_type) {
-  switch ($op) {
-    case 'add':
-      return t('Add discount');
-    case 'import':
-      return t('Import discount');
-  }
 }
 
 /**
