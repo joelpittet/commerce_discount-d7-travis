@@ -85,7 +85,7 @@ function commerce_discount_commerce_cart_order_refresh($wrapper) {
  *   Wrapped commerce price.
  */
 function commerce_discount_remove_discount_components($price_wrapper) {
-  $data = $price_wrapper->data->value();
+  $data = (array) $price_wrapper->data->value() + array('components' => array());
   $component_removed = FALSE;
   // Remove price components belonging to order discounts.
   foreach ($data['components'] as $key => $component) {
