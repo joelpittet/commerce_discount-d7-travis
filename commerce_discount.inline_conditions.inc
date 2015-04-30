@@ -163,10 +163,10 @@ function commerce_order_compare_order_amount_configure($settings) {
   $form = array();
 
   // Ensure we've default settings set.
-  $settings = array(
+  $settings += array(
     'operator' => '>=',
     'total' => array('amount' => 0),
-  ) + $settings;
+  );
 
   // Get the default website currency.
   $default_currency = commerce_currency_load(NULL);
@@ -224,9 +224,9 @@ function commerce_order_has_owner_configure($settings) {
   $form = array();
 
   // Ensure we've default settings set.
-  $settings = array(
+  $settings += array(
     'account' => 0,
-  ) + $settings;
+  );
 
   $form['account'] = array(
     '#type' => 'textfield',
@@ -255,9 +255,9 @@ function commerce_product_has_owner_configure($settings) {
   $form = array();
 
   // Ensure we've default settings set.
-  $settings = array(
+  $settings += array(
     'value' => 0,
-  ) + $settings;
+  );
 
   // The bellow values (data:select & op) are added because they are required by
   // rule condition.
@@ -314,9 +314,9 @@ function _commerce_order_has_owner_validate($element, &$form_state, $form) {
  */
 function commerce_order_contains_products_configure($settings) {
   // Ensure we've default settings set.
-  $settings = array(
+  $settings += array(
     'products' => array(),
-  ) + $settings;
+  );
 
   // Get values from $settings.
   $default_value = '';
@@ -357,11 +357,11 @@ function commerce_order_contains_products_configure($settings) {
  */
 function commerce_order_has_specific_quantity_products_configure($settings) {
   // Ensure we've default settings set.
-  $settings = array(
+  $settings += array(
     'products' => array(),
     'operator' => '==',
     'quantity' => '',
-  ) + $settings;
+  );
 
   // Get product IDs from $settings.
   $default_value = '';
@@ -467,9 +467,9 @@ function commerce_product_contains_products_configure($settings) {
   $default_value = '';
 
   // Ensure we've default settings set.
-  $settings = array(
+  $settings += array(
     'sku' => array(),
-  ) + $settings;
+  );
 
   foreach ($settings['sku'] as $delta => $product_id) {
     $product = commerce_product_load(reset($product_id));
@@ -547,9 +547,9 @@ function commerce_product_has_specified_terms_configure($settings) {
   $form = array();
 
   // Ensure we've default settings set.
-  $settings = array(
+  $settings += array(
     'terms' => array(),
-  ) + $settings;
+  );
 
   $default_value = '';
   foreach ($settings['terms'] as $delta => $term) {
