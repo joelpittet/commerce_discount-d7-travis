@@ -161,8 +161,8 @@ function commerce_discount_form($form, &$form_state, CommerceDiscount $commerce_
       'source' => array('label'),
     ),
     '#description' => t('A unique machine-readable name for this message type. It must only contain lowercase letters, numbers, and underscores.'),
-    // 32 characters minus the 'discount_' prefix.
-    '#maxlength' => 23,
+    // 64 characters minus the 9 character 'discount_' prefix.
+    '#maxlength' => 64 - 9,
     // This field should stay LTR even for RTL languages.
     '#field_prefix' => '<span dir="ltr">discount_',
     '#field_suffix' => '</span>&lrm;',
