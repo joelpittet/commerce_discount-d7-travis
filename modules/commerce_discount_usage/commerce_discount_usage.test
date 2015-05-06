@@ -13,6 +13,11 @@ class CommerceDiscountUsageTest extends CommerceDiscountTest {
   private $store_customer2;
 
   /**
+   * @inheritdoc
+   */
+  protected $sub_module = 'commerce_discount_usage';
+
+  /**
    * Implementation of getInfo().
    */
   public static function getInfo() {
@@ -27,8 +32,7 @@ class CommerceDiscountUsageTest extends CommerceDiscountTest {
    * Implementation of setUp().
    */
   public function setUp() {
-    parent::setUp('commerce_discount_usage');
-
+    parent::setUp();
     $this->store_customer2 = $this->createStoreCustomer();
   }
 
@@ -56,7 +60,7 @@ class CommerceDiscountUsageTest extends CommerceDiscountTest {
     $this->drupalPost(NULL, $values, t('Save commerce discount'));
 
     // Load the discount and wrap it.
-    $discount = commerce_discount_load(1);
+    $discount = entity_load_single('commerce_discount', 1);
     $wrapper = entity_metadata_wrapper('commerce_discount', $discount);
 
     // Check the usage fields of the stored discount.

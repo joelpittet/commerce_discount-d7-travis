@@ -9,6 +9,12 @@
  * Testing commerce discount usage module UI and functionality.
  */
 class CommerceDiscountDateTest extends CommerceDiscountTestBase {
+
+  /**
+   * @inheritdoc
+   */
+  protected $sub_module = 'commerce_discount_date';
+
   /**
    * Implementation of getInfo().
    */
@@ -18,13 +24,6 @@ class CommerceDiscountDateTest extends CommerceDiscountTestBase {
       'description' => 'Test discounts date UI and functionality',
       'group' => 'Commerce discounts',
     );
-  }
-
-  /**
-   * Implementation of setUp().
-   */
-  public function setUp() {
-    parent::setUp('commerce_discount_date');
   }
 
   /**

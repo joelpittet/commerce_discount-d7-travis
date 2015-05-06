@@ -16,6 +16,19 @@ class CommerceDiscountTestBase extends CommerceBaseTestCase {
   protected $product_node;
 
   /**
+   * User accounts for testing.
+   */
+  protected $store_admin;
+  protected $store_customer;
+
+  /**
+   * Allows submodules to define themselves for setup.
+   *
+   * @var string
+   */
+  protected $sub_module;
+
+  /**
    * Overrides CommerceBaseTestCase::permissionBuilder().
    */
   protected function permissionBuilder($set) {
@@ -33,16 +46,13 @@ class CommerceDiscountTestBase extends CommerceBaseTestCase {
 
   /**
    * Implementation of setUp().
-   *
-   * @param $sub_module
-   *   Used by inherting classes to turn themselves on.
    */
-  public function setUp($sub_module = FALSE) {
+  public function setUp() {
     // Enable all commerce modules + commerce_discount.
     $modules = parent::setUpHelper('all');
     $modules[] = 'commerce_discount';
-    if ($sub_module) {
-      $modules[] = $sub_module;
+    if ($this->sub_module) {
+      $modules[] = $this->sub_module;
     }
     parent::setUp($modules);
 
@@ -240,9 +250,8 @@ class CommerceDiscountTest extends CommerceDiscountTestBase {
         }
       ]
     },
-    "rdf_mapping" : []
   },
-  "rdf_mapping" : []
+  "inline_conditions" : []
 }';
 
     // Import the discount.
@@ -352,7 +361,7 @@ class CommerceDiscountTest extends CommerceDiscountTestBase {
    * Test discounted product price display.
    */
   public function testCommerceDiscountDiscountedProductPriceDisplay() {
-    // Create a product dicount.
+    // Create a product discount.
     $discount = $this->createDiscount('product_discount', 'fixed_amount', 300);
     $formatted_discounted_price = '$7.00';
 
@@ -384,6 +393,7 @@ class CommerceDiscountTest extends CommerceDiscountTestBase {
 
     // Create an order.
     $order = $this->createDummyOrder($this->store_customer->uid, array($this->product->product_id => 1), 'complete');
+    entity_get_controller('commerce_order')->resetCache(array($order->order_id));
 
     $wrapper = entity_metadata_wrapper('commerce_order', $order);
 
