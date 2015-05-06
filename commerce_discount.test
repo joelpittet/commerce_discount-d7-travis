@@ -239,8 +239,8 @@ class CommerceDiscountTest extends CommerceDiscountTestBase {
   "name" : "pf",
   "label" : "PF",
   "type" : "product_discount",
-  "component_title" : null,
-  "export_status" : "1",
+  "status" : "1",
+  "component_title" : "pf",
   "commerce_discount_offer" : {
     "type" : "fixed_amount",
     "commerce_fixed_amount" : { "und" : [
@@ -250,7 +250,7 @@ class CommerceDiscountTest extends CommerceDiscountTestBase {
           "data" : { "components" : [] }
         }
       ]
-    },
+    }
   },
   "inline_conditions" : []
 }';
