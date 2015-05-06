@@ -239,7 +239,8 @@ class CommerceDiscountTest extends CommerceDiscountTestBase {
   "name" : "pf",
   "label" : "PF",
   "type" : "product_discount",
-  "status" : "1",
+  "component_title" : null,
+  "export_status" : "1",
   "commerce_discount_offer" : {
     "type" : "fixed_amount",
     "commerce_fixed_amount" : { "und" : [
@@ -255,7 +256,9 @@ class CommerceDiscountTest extends CommerceDiscountTestBase {
 }';
 
     // Import the discount.
-    $this->drupalPost(NULL, array('import' => $exported_discount), t('Import'));
+    $import = entity_import('commerce_discount', $exported_discount);
+    $this->assertNotNull($import, t('Entity export JSON imported successfully.'));
+    entity_save('commerce_discount', $import);
 
     // Export the discount to make sure it's identical to the import string.
     $discount = entity_load_single('commerce_discount', 1);
