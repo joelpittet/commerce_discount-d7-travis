@@ -81,7 +81,7 @@ function commerce_discount_commerce_cart_order_refresh($wrapper) {
 /**
  * Remove discount components from a given price and recalculate the total.
  *
- * @param $price_wrapper
+ * @param object $price_wrapper
  *   Wrapped commerce price.
  */
 function commerce_discount_remove_discount_components($price_wrapper) {
@@ -469,7 +469,7 @@ function commerce_discount_commerce_discount_rule_build($rule, $discount) {
 /**
  * Return an array of all defined discount types.
  *
- * @return
+ * @return array
  *   The array of types, keyed by type name.
  */
 function commerce_discount_types() {
@@ -498,10 +498,10 @@ function commerce_discount_types() {
 /**
  * Loads the data for a specific discount type.
  *
- * @param $discount_type
+ * @param string $discount_type
  *   The machine name of a discount type.
  *
- * @return
+ * @return mixed
  *   The requested array or FALSE if not found.
  */
 function commerce_discount_type($discount_type) {
@@ -513,10 +513,10 @@ function commerce_discount_type($discount_type) {
 /**
  * Returns the human readable name of any or all discount types.
  *
- * @param $type
+ * @param string $type
  *   Optional parameter specifying the type whose name to return.
  *
- * @return
+ * @return mixed
  *   Either an array of all discount type names keyed by the machine name or a
  *     string containing the human readable name for the specified type. If a
  *     type is specified that does not exist, this function returns FALSE.
@@ -546,7 +546,7 @@ function commerce_discount_type_get_name($type = NULL) {
 /**
  * Return an array of all defined discount offer types.
  *
- * @return
+ * @return array
  *   The array of types, keyed by type name.
  */
 function commerce_discount_offer_types() {
@@ -575,10 +575,10 @@ function commerce_discount_offer_types() {
 /**
  * Loads the data for a specific discount offer type.
  *
- * @param $offer_type
+ * @param string $offer_type
  *   The machine name of an offer type.
  *
- * @return
+ * @return mixed
  *   The requested array or FALSE if not found.
  */
 function commerce_discount_offer_type($offer_type) {
@@ -590,10 +590,10 @@ function commerce_discount_offer_type($offer_type) {
 /**
  * Returns the human readable name of any or all discount offer types.
  *
- * @param $type
+ * @param string $type
  *   Optional parameter specifying the offer type whose name to return.
  *
- * @return
+ * @return mixed
  *   Either an array of all discount offer type names keyed by the machine name
  *   or a string containing the human readable name for the specified type.
  *   If a type is specified that does not exist, this function returns FALSE.

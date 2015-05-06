@@ -542,7 +542,6 @@ function commerce_product_has_specified_terms_build(EntityDrupalWrapper $wrapper
   return empty($terms_name);
 }
 
-
 /**
  * Rules action: Apply fixed amount discount.
  */
