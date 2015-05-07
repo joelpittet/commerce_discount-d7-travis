@@ -79,7 +79,7 @@ class CommerceDiscountUsageTest extends CommerceDiscountTest {
   public function testCommerceDiscountUsageUIEditDiscount() {
     // Testing fixed discount.
     // Create a fixed order discount of $3 limited to one use.
-    $discount = $this->createDiscount('order_discount', 'fixed_amount', 300, 1);
+    $discount = $this->createUsageDiscount('order_discount', 'fixed_amount', 300, 1);
 
     // Login with store admin.
     $this->drupalLogin($this->store_admin);
@@ -120,7 +120,7 @@ class CommerceDiscountUsageTest extends CommerceDiscountTest {
   public function testCommerceDiscountUsageFixedOrderDiscount() {
     // Testing fixed discount.
     // Create a fixed order discount of $3 limited to one use.
-    $discount = $this->createDiscount('order_discount', 'fixed_amount', 300, 1);
+    $discount = $this->createUsageDiscount('order_discount', 'fixed_amount', 300, 1);
 
     // Create an order.
     $order = $this->createDummyOrder($this->store_customer->uid, array($this->product->product_id => 1), 'complete');
@@ -141,7 +141,7 @@ class CommerceDiscountUsageTest extends CommerceDiscountTest {
   public function testCommerceDiscountUsagePercentageOrderDiscount() {
     // Testing percentage discount.
     // Create a percentage order discount of 5% limited to one use.
-    $discount = $this->createDiscount('order_discount', 'percentage', 5, 1);
+    $discount = $this->createUsageDiscount('order_discount', 'percentage', 5, 1);
     // Create a completed order.
     $order = $this->createDummyOrder($this->store_customer->uid, array($this->product->product_id => 1), 'complete');
     $wrapper = entity_metadata_wrapper('commerce_order', $order);
@@ -159,7 +159,7 @@ class CommerceDiscountUsageTest extends CommerceDiscountTest {
    * Test fixed product discounts.
    */
   public function testCommerceDiscountUsageFixedProductDiscount() {
-    $discount = $this->createDiscount('product_discount', 'fixed_amount', 300, 1);
+    $discount = $this->createUsageDiscount('product_discount', 'fixed_amount', 300, 1);
 
     // Create an order.
     $order = $this->createDummyOrder($this->store_customer->uid, array($this->product->product_id => 1), 'complete');
@@ -188,7 +188,7 @@ class CommerceDiscountUsageTest extends CommerceDiscountTest {
    * Test percentage product discounts.
    */
   public function testCommerceDiscountUsagePercentageProductDiscount() {
-    $discount = $this->createDiscount('product_discount', 'percentage', 5, 1);
+    $discount = $this->createUsageDiscount('product_discount', 'percentage', 5, 1);
 
     // Create an order.
     $order = $this->createDummyOrder($this->store_customer->uid, array($this->product->product_id => 1), 'complete');
@@ -228,7 +228,7 @@ class CommerceDiscountUsageTest extends CommerceDiscountTest {
    * @return
    *   The newly created commerce_discount entity.
    */
-  protected function createDiscount($discount_type, $offer_type, $amount, $max_usage) {
+  protected function createUsageDiscount($discount_type, $offer_type, $amount, $max_usage) {
     // Use the base class to create a discount.
     $discount = parent::createDiscount($discount_type, $offer_type, $amount);
 
