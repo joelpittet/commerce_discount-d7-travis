@@ -405,6 +405,10 @@ class CommerceDiscountTest extends CommerceDiscountTestBase {
     $order = $this->createDummyOrder($this->store_customer->uid, array($this->product->product_id => 1), 'complete');
 
     $wrapper = entity_metadata_wrapper('commerce_order', $order);
+
+    // Recalculate discounts.
+    commerce_cart_order_refresh($order);
+
     // Check if the discount was applied on the order total price.
     $this->assertTrue($wrapper->commerce_order_total->amount->value() == 700, t('Fixed order discount is deducted correctly.'));
 
@@ -430,6 +434,10 @@ class CommerceDiscountTest extends CommerceDiscountTestBase {
     // Create a completed order.
     $order = $this->createDummyOrder($this->store_customer->uid, array($this->product->product_id => 1), 'complete');
     $wrapper = entity_metadata_wrapper('commerce_order', $order);
+
+    // Recalculate discounts.
+    commerce_cart_order_refresh($order);
+
     // Check if the discount was applied on the order total price.
     $this->assertTrue($wrapper->commerce_order_total->amount->value() == 950, t('Percentage order discount is deducted correctly.'));
 
@@ -455,6 +463,10 @@ class CommerceDiscountTest extends CommerceDiscountTestBase {
     // Create a completed order.
     $order = $this->createDummyOrder($this->store_customer->uid, array($this->product->product_id => 1), 'complete');
     $wrapper = entity_metadata_wrapper('commerce_order', $order);
+
+    // Recalculate discounts.
+    commerce_cart_order_refresh($order);
+
     // Check if the discount was applied on the order total price.
     $this->assertTrue($wrapper->commerce_order_total->amount->value() == 0, t('Free Products order discount is deducted correctly.'));
 
@@ -467,7 +479,10 @@ class CommerceDiscountTest extends CommerceDiscountTestBase {
     $wrapper = entity_metadata_wrapper('commerce_order', $order);
     $wrapper->save();
 
-    $this->assertTrue($wrapper->commerce_order_total->amount->value() == 1000, t('Free Products order discount is removed when it\'s not appliable.'));
+    // Recalculate discounts.
+    commerce_cart_order_refresh($order);
+
+    $this->assertTrue($wrapper->commerce_order_total->amount->value() == 1000, t("Free Products order discount is removed when it's not appliable."));
   }
 
   /**
@@ -551,6 +566,9 @@ class CommerceDiscountTest extends CommerceDiscountTestBase {
     entity_get_controller('commerce_order')->resetCache(array($order->order_id));
 
     $wrapper = entity_metadata_wrapper('commerce_order', $order);
+
+    // Recalculate discounts.
+    commerce_cart_order_refresh($order);
 
     $this->assertTrue($wrapper->commerce_discounts->count() == 2, t('2 discounts are listed as applied on the order.'));
     $this->assertTrue($wrapper->commerce_order_total->amount->value() == 500, t('Two fixed order discounts are applied on the total price.'));
