@@ -250,9 +250,11 @@ class CommerceDiscountTest extends CommerceDiscountTestBase {
           "data" : { "components" : [] }
         }
       ]
-    }
+    },
+    "rdf_mapping" : []
   },
-  "inline_conditions" : []
+  "inline_conditions" : [],
+  "rdf_mapping" : []
 }';
 
     // Import the discount.
