@@ -51,7 +51,7 @@ class CommerceDiscountTestBase extends CommerceBaseTestCase {
   }
 
   /**
-   * Implementation of setUp().
+   * {@inheritdoc}
    */
   public function setUp() {
     // Enable all commerce modules + commerce_discount.

@@ -13,12 +13,12 @@ class CommerceDiscountUsageTest extends CommerceDiscountTest {
   private $store_customer2;
 
   /**
-   * @inheritdoc
+   * {@inheritdoc}
    */
   protected $sub_module = 'commerce_discount_usage';
 
   /**
-   * @inheritdoc
+   * {@inheritdoc}
    */
   public static function getInfo() {
     return array(
@@ -29,7 +29,7 @@ class CommerceDiscountUsageTest extends CommerceDiscountTest {
   }
 
   /**
-   * @inheritdoc
+   * {@inheritdoc}
    */
   public function setUp() {
     parent::setUp();

@@ -11,12 +11,12 @@
 class CommerceDiscountDateTest extends CommerceDiscountTestBase {
 
   /**
-   * @inheritdoc
+   * {@inheritdoc}
    */
   protected $sub_module = 'commerce_discount_date';
 
   /**
-   * Implementation of getInfo().
+   * {@inheritdoc}
    */
   public static function getInfo() {
     return array(
@@ -27,7 +27,7 @@ class CommerceDiscountDateTest extends CommerceDiscountTestBase {
   }
 
   /**
-   * Implementation of setUp().
+   * {@inheritdoc}
    */
   public function setUp() {
     parent::setUp($modules);
