@@ -27,6 +27,13 @@ class CommerceDiscountDateTest extends CommerceDiscountTestBase {
   }
 
   /**
+   * Implementation of setUp().
+   */
+  public function setUp() {
+    parent::setUp($modules);
+  }
+
+  /**
    * Test date specific elements in the add discount UI.
    */
   public function testDiscountDateUIAddDiscount() {
