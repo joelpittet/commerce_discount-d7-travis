@@ -125,12 +125,20 @@ class CommerceDiscountUsageTest extends CommerceDiscountTest {
     // Create an order.
     $order = $this->createDummyOrder($this->store_customer->uid, array($this->product->product_id => 1), 'complete');
     $wrapper = entity_metadata_wrapper('commerce_order', $order);
+
+    // Recalculate discounts.
+    commerce_cart_order_refresh($order);
+
     // Check if the discount was applied on the order total price.
     $this->assertTrue($wrapper->commerce_order_total->amount->value() == 700, t('Fixed order discount is deducted correctly on the first use.'));
 
     // Create another order to make sure the discount isn't applied again.
     $order = $this->createDummyOrder($this->store_customer2->uid, array($this->product->product_id => 1), 'complete');
     $wrapper = entity_metadata_wrapper('commerce_order', $order);
+
+    // Recalculate discounts.
+    commerce_cart_order_refresh($order);
+
     // Check if the discount was applied on the order total price.
     $this->assertTrue($wrapper->commerce_order_total->amount->value() == 1000, t('Fixed order discount is ignored after maximal usage.'));
   }
@@ -145,12 +153,20 @@ class CommerceDiscountUsageTest extends CommerceDiscountTest {
     // Create a completed order.
     $order = $this->createDummyOrder($this->store_customer->uid, array($this->product->product_id => 1), 'complete');
     $wrapper = entity_metadata_wrapper('commerce_order', $order);
+
+    // Recalculate discounts.
+    commerce_cart_order_refresh($order);
+
     // Check if the discount was applied on the order total price.
     $this->assertTrue($wrapper->commerce_order_total->amount->value() == 950, t('Percentage order discount is deducted correctly.'));
 
     // Create another order to make sure the discount isn't applied again.
     $order = $this->createDummyOrder($this->store_customer2->uid, array($this->product->product_id => 1), 'complete');
     $wrapper = entity_metadata_wrapper('commerce_order', $order);
+
+    // Recalculate discounts.
+    commerce_cart_order_refresh($order);
+
     // Check if the discount was applied on the order total price.
     $this->assertTrue($wrapper->commerce_order_total->amount->value() == 1000, t('Percentage order discount is ignored after maximal usage.'));
   }

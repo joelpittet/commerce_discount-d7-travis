@@ -511,7 +511,7 @@ class CommerceDiscountTest extends CommerceDiscountTestBase {
     $line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $line_item);
     $price_data = $line_item_wrapper->commerce_unit_price->data->value();
 
-    $this->assertTrue($price_data['components'][1]['price']['amount'] == -300, t('Fixed product discount is added as a price compoennt to the line item.'));
+    $this->assertTrue($price_data['components'][1]['price']['amount'] == -300, t('Fixed product discount is added as a price component to the line item.'));
   }
 
   /**
@@ -532,7 +532,7 @@ class CommerceDiscountTest extends CommerceDiscountTestBase {
     $line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $line_item);
     $price_data = $line_item_wrapper->commerce_unit_price->data->value();
 
-    $this->assertTrue($price_data['components'][1]['price']['amount'] == -50, t('Percentage product discount is added as a price compoennt to the line item.'));
+    $this->assertTrue($price_data['components'][1]['price']['amount'] == -50, t('Percentage product discount is added as a price component to the line item.'));
   }
 
   /**
