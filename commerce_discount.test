@@ -100,17 +100,17 @@ class CommerceDiscountTestBase extends CommerceBaseTestCase {
     $wrapper = entity_metadata_wrapper('commerce_discount_offer', $commerce_discount_offer);
     switch ($offer_type) {
       case 'fixed_amount':
-        $wrapper->commerce_fixed_amount->amount->set($amount);
-        $wrapper->commerce_fixed_amount->currency_code->set('USD');
+        $wrapper->commerce_fixed_amount->amount = $amount;
+        $wrapper->commerce_fixed_amount->currency_code = 'USD';
         break;
 
       case 'percentage':
-        $wrapper->commerce_percentage->set($amount);
+        $wrapper->commerce_percentage = $amount;
         break;
 
       case 'free_products':
-        // product ids array should be provided for $amount.
-        $wrapper->commerce_free_products->set($amount);
+        // Product ids array should be provided for $amount.
+        $wrapper->commerce_free_products = $amount;
         break;
 
     }
@@ -131,7 +131,7 @@ class CommerceDiscountTestBase extends CommerceBaseTestCase {
     );
     $commerce_discount = entity_create('commerce_discount', $values);
     $wrapper = entity_metadata_wrapper('commerce_discount', $commerce_discount);
-    $wrapper->commerce_discount_offer->set($commerce_discount_offer);
+    $wrapper->commerce_discount_offer = $commerce_discount_offer;
     $wrapper->save();
 
     return $wrapper->value();
@@ -152,6 +152,13 @@ class CommerceDiscountTest extends CommerceDiscountTestBase {
       'description' => 'Test discounts UI and functionality',
       'group' => 'Commerce discounts',
     );
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setUp() {
+    parent::setUp();
   }
 
   /**

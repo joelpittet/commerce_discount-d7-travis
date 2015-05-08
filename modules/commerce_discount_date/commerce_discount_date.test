@@ -30,7 +30,7 @@ class CommerceDiscountDateTest extends CommerceDiscountTestBase {
    * {@inheritdoc}
    */
   public function setUp() {
-    parent::setUp($modules);
+    parent::setUp();
   }
 
   /**

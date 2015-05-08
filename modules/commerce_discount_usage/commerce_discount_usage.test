@@ -8,7 +8,7 @@
 /**
  * Testing commerce discount usage module UI and functionality.
  */
-class CommerceDiscountUsageTest extends CommerceDiscountTest {
+class CommerceDiscountUsageTest extends CommerceDiscountTestBase {
 
   private $store_customer2;
 
