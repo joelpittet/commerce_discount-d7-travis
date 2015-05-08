@@ -234,7 +234,7 @@ class CommerceDiscountUsageTest extends CommerceDiscountTest {
 
     // Populate the max usage field.
     $wrapper = entity_metadata_wrapper('commerce_discount', $discount);
-    $wrapper->discount_usage_limit $max_usage;
+    $wrapper->discount_usage_limit = $max_usage;
     $wrapper->save();
 
     return $wrapper->value();
