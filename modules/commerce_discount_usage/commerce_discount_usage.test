@@ -191,6 +191,10 @@ class CommerceDiscountUsageTest extends CommerceDiscountTestBase {
     // Create another order to make sure the discount isn't applied again.
     $order = $this->createDummyOrder($this->store_customer2->uid, array($this->product->product_id => 1), 'complete');
     $wrapper = entity_metadata_wrapper('commerce_order', $order);
+
+    // Recalculate discounts.
+    commerce_cart_order_refresh($order);
+
     // Invoke line item price re-calculation.
     $line_item = $wrapper->commerce_line_items->get(0)->value();
     rules_invoke_event('commerce_product_calculate_sell_price', $line_item);
@@ -209,6 +213,10 @@ class CommerceDiscountUsageTest extends CommerceDiscountTestBase {
     // Create an order.
     $order = $this->createDummyOrder($this->store_customer->uid, array($this->product->product_id => 1), 'complete');
     $wrapper = entity_metadata_wrapper('commerce_order', $order);
+
+    // Recalculate discounts.
+    commerce_cart_order_refresh($order);
+
     // Invoke line item price re-calculation.
     $line_item = $wrapper->commerce_line_items->get(0)->value();
     rules_invoke_event('commerce_product_calculate_sell_price', $line_item);
@@ -220,6 +228,10 @@ class CommerceDiscountUsageTest extends CommerceDiscountTestBase {
     // Create another order to make sure the discount isn't applied again.
     $order = $this->createDummyOrder($this->store_customer2->uid, array($this->product->product_id => 1), 'complete');
     $wrapper = entity_metadata_wrapper('commerce_order', $order);
+
+    // Recalculate discounts.
+    commerce_cart_order_refresh($order);
+
     // Invoke line item price re-calculation.
     $line_item = $wrapper->commerce_line_items->get(0)->value();
     rules_invoke_event('commerce_product_calculate_sell_price', $line_item);
