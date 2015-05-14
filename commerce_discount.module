@@ -29,8 +29,8 @@ function commerce_discount_commerce_cart_order_refresh($wrapper) {
       $line_items_to_delete[] = $wrapper_line_item->line_item_id->value();
       $wrapper->commerce_line_items->offsetUnset($delta);
     }
-    else {
-      $cloned_line_items[$wrapper_line_item->getIdentifier()] = clone($wrapper_line_item->value());
+    elseif (is_object($wrapper_line_item) && $line_item = $wrapper_line_item->value()) {
+      $cloned_line_items[$wrapper_line_item->getIdentifier()] = clone $line_item;
 
       // Remove discount components from the line item price fields; the line
       // item may be a discount (so the price will become 0) or another line
