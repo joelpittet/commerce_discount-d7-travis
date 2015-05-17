@@ -12,7 +12,7 @@ dependencies[] = entity
 dependencies[] = entityreference
 dependencies[] = inline_entity_form (>=1.5)
 dependencies[] = views
-dependencies[] = inline_conditions
+dependencies[] = inline_conditions (1.x)
 
 files[] = commerce_discount.info.inc
 files[] = includes/commerce_discount.admin.inc
@@ -27,3 +27,6 @@ files[] = includes/views/handlers/commerce_discount_handler_field_operations_dro
 
 ; Simple tests
 files[] = commerce_discount.test
+
+test_dependencies[] = commerce_shipping
+test_dependencies[] = commerce_customer
