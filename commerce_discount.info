@@ -10,9 +10,9 @@ dependencies[] = commerce_line_item
 dependencies[] = commerce_product_reference
 dependencies[] = entity
 dependencies[] = entityreference
-dependencies[] = inline_conditions (>1.0-alpha4)
-dependencies[] = inline_entity_form (>=1.5)
 dependencies[] = views
+dependencies[] = inline_entity_form (>=1.5)
+dependencies[] = inline_conditions (>1.0-alpha4)
 
 files[] = commerce_discount.info.inc
 files[] = includes/commerce_discount.admin.inc
@@ -31,4 +31,3 @@ files[] = commerce_discount.test
 test_dependencies[] = addressfield
 test_dependencies[] = commerce_shipping
 test_dependencies[] = commerce_customer
-test_dependencies[] = inline_conditions (>1.0-alpha4)
