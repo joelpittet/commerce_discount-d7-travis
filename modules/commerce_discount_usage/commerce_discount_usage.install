@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * Implements hook_install().
  */
 function commerce_discount_usage_install() {
@@ -16,10 +16,7 @@ function _commerce_discount_usage_install_helper() {
   $fields = field_info_fields();
   $instances = field_info_instances();
 
-  /*
-   * Discount usage per-person
-   */
-
+  // Discount usage per-person.
   if (empty($fields['discount_usage_per_person'])) {
     // Create entity reference field.
     $field = array(
@@ -50,10 +47,7 @@ function _commerce_discount_usage_install_helper() {
     }
   }
 
-  /*
-   * Discount usage
-   */
-
+  // Discount usage.
   if (empty($fields['discount_usage_limit'])) {
     // Create entity reference field.
     $field = array(
@@ -85,7 +79,7 @@ function _commerce_discount_usage_install_helper() {
   }
 }
 
-/*
+/**
  * Implements hook_schema().
  */
 function commerce_discount_usage_schema() {
@@ -141,7 +135,7 @@ function commerce_discount_usage_schema() {
  * Create usage table
  */
 function commerce_discount_usage_update_7001() {
-  // Add usage table
+  // Add usage table.
   if (!db_table_exists('commerce_discount_usage')) {
     db_create_table('commerce_discount_usage', drupal_get_schema_unprocessed('commerce_discount_usage', 'commerce_discount_usage'));
   }
