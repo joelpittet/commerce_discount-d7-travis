@@ -8,4 +8,4 @@ dependencies[] = date
 dependencies[] = date_popup
 
 ; Simple tests
-files[] = commerce_discount_date.test
+;files[] = commerce_discount_date.test
