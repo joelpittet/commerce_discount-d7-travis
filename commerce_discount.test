@@ -536,53 +536,54 @@ class CommerceDiscountTest extends CommerceDiscountTestBase {
 //     $this->assertTrue($price_data['components'][1]['price']['amount'] == -50, t('Percentage product discount is added as a price component to the line item.'));
 //   }
 
-//   /**
-//    * Test discounted product price display.
-//    */
-//   public function testCommerceDiscountDiscountedProductPriceDisplay() {
-//     // Create a product discount.
-//     $discount = $this->createDiscount('product_discount', 'fixed_amount', 300);
-//     $formatted_discounted_price = '$7.00';
+  /**
+   * Test discounted product price display.
+   */
+  public function testCommerceDiscountDiscountedProductPriceDisplay() {
+    // Create a product discount.
+    $discount = $this->createDiscount('product_discount', 'fixed_amount', 300);
+    $formatted_discounted_price = '$7.00';
 
-//     // Log as a normal user.
-//     $this->drupalLogin($this->store_customer);
+    // Log as a normal user.
+    $this->drupalLogin($this->store_customer);
 
-//     $nid = $this->product_node->nid;
-//     // View a product node.
-//     $this->drupalGet("node/$nid");
-//     $product_price = $this->xpath('//div[contains(@class, "field-name-commerce-price")]/div[contains(@class, "field-item")]');
-//     $this->assertTrue(trim((string)$product_price[0]->div) == $formatted_discounted_price, t('Discounted product price is shown on product page.'));
+    $nid = $this->product_node->nid;
+    // View a product node.
+    $this->drupalGet("node/$nid");
+    $product_price = $this->xpath('//div[contains(@class, "field-name-commerce-price")]/div[contains(@class, "field-item")]');
+    $this->assertTrue(trim((string)$product_price[0]->div) == $formatted_discounted_price, t('Discounted product price is shown on product page.'));
 
-//     // Add a product to the cart.
-//     $this->drupalPost('node/' . $this->product_node->nid, array(), t('Add to cart'));
+    // Add a product to the cart.
+    $this->drupalPost('node/' . $this->product_node->nid, array(), t('Add to cart'));
 
-//     // View the cart.
-//     $this->drupalGet('cart');
-//     $product_price = $this->xpath('//td[contains(@class, "views-field-commerce-unit-price")]');
-//     $this->assertTrue(trim((string)$product_price[0]->{0}) == $formatted_discounted_price, t('Discounted product price is shown on the cart.'));
-//   }
+    // View the cart.
+    $this->drupalGet('cart');
+    $product_price = $this->xpath('//td[contains(@class, "views-field-commerce-unit-price")]');
+    $this->assertTrue(trim((string)$product_price[0]->{0}) == $formatted_discounted_price, t('Discounted product price is shown on the cart.'));
+  }
 
-//   /**
-//    * Test multiple fixed order discounts.
-//    */
-//   public function testCommerceDiscountMultipleFixedOrderDiscounts() {
-//     // Create two discounts.
-//     $discount = $this->createDiscount('order_discount', 'fixed_amount', 300, 'of1');
-//     $discount = $this->createDiscount('order_discount', 'fixed_amount', 200, 'of2');
+  /**
+   * Test multiple fixed order discounts.
+   */
+  public function testCommerceDiscountMultipleFixedOrderDiscounts() {
+    // Create two discounts.
+    $discount = $this->createDiscount('order_discount', 'fixed_amount', 300, 'of1');
+    $discount = $this->createDiscount('order_discount', 'fixed_amount', 200, 'of2');
 
-//     // Create an order.
-//     $order = $this->createDummyOrder($this->store_customer->uid, array($this->product->product_id => 1), 'complete');
-//     entity_get_controller('commerce_order')->resetCache(array($order->order_id));
+    // Create an order.
+    $order = $this->createDummyOrder($this->store_customer->uid, array($this->product->product_id => 1), 'complete');
+    entity_get_controller('commerce_order')->resetCache(array($order->order_id));
 
-//     $wrapper = entity_metadata_wrapper('commerce_order', $order);
+    $wrapper = entity_metadata_wrapper('commerce_order', $order);
 
-//     // Recalculate discounts.
-//     commerce_cart_order_refresh($order);
+    // Recalculate discounts.
+    commerce_cart_order_refresh($order);
 
-//     $this->assertTrue($wrapper->commerce_discounts->count() == 2, t('2 discounts are listed as applied on the order.'));
-//     $this->assertTrue($wrapper->commerce_order_total->amount->value() == 500, t('Two fixed order discounts are applied on the total price.'));
-//     $this->assertTrue($wrapper->commerce_line_items->count() == 3, t('An order with one product and two fixed order discounts has three line items.'));
-//     $wrapper->save();
-//     $this->assertTrue($wrapper->commerce_line_items->count() == 3, t('After updating the order it still has three line items.'));
-//   }
+    $this->assertTrue($wrapper->commerce_discounts->count() == 2, t('2 discounts are listed as applied on the order.'));
+    $this->assertTrue($wrapper->commerce_order_total->amount->value() == 500, t('Two fixed order discounts are applied on the total price.'));
+    $this->assertTrue($wrapper->commerce_line_items->count() == 3, t('An order with one product and two fixed order discounts has three line items.'));
+    $wrapper->save();
+    $this->assertTrue($wrapper->commerce_line_items->count() == 3, t('After updating the order it still has three line items.'));
+  }
+
 }
