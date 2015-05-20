@@ -4,14 +4,14 @@ core = 7.x
 package = Commerce (contrib)
 
 dependencies[] = number
+dependencies[] = entity
+dependencies[] = entityreference
+dependencies[] = inline_entity_form (>=1.5)
+dependencies[] = views
 dependencies[] = commerce
 dependencies[] = commerce_price
 dependencies[] = commerce_line_item
 dependencies[] = commerce_product_reference
-dependencies[] = entity
-dependencies[] = entityreference
-dependencies[] = views
-dependencies[] = inline_entity_form (>=1.5)
 dependencies[] = inline_conditions (>1.0-alpha4)
 
 files[] = commerce_discount.info.inc
@@ -28,6 +28,4 @@ files[] = includes/views/handlers/commerce_discount_handler_field_operations_dro
 ; Simple tests
 files[] = commerce_discount.test
 
-test_dependencies[] = addressfield
 test_dependencies[] = commerce_shipping
-test_dependencies[] = commerce_customer
