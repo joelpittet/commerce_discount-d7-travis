@@ -13,7 +13,7 @@ class CommerceDiscountTestBase extends CommerceBaseTestCase {
   /**
    * Don't need most of default core modules.
    */
-  protected $profile = 'minimal';
+  // protected $profile = 'minimal';
 
   /**
    * Dummy commerce_product and related product node.
@@ -155,27 +155,27 @@ class CommerceDiscountTest extends CommerceDiscountTestBase {
     );
   }
 
-//   /**
-//    * Access to commerce discounts admin.
-//    */
-//   public function testCommerceDiscountUIAccessDiscountsListing() {
-//     // Login with customer.
-//     $this->drupalLogin($this->store_customer);
-//     // Check the access to the profiles listing.
-//     $this->drupalGet('admin/commerce/store/discounts');
-//     $this->assertResponse(403, t('The store customer has no access to discounts administration.'));
+  /**
+   * Access to commerce discounts admin.
+   */
+  public function testCommerceDiscountUIAccessDiscountsListing() {
+    // Login with customer.
+    $this->drupalLogin($this->store_customer);
+    // Check the access to the profiles listing.
+    $this->drupalGet('admin/commerce/store/discounts');
+    $this->assertResponse(403, t('The store customer has no access to discounts administration.'));
 
-//     // Login with store admin.
-//     $this->drupalLogin($this->store_admin);
-//     // Check the access to the profiles listing.
-//     $this->drupalGet('admin/commerce/store/discounts');
-//     $this->assertResponse(200, t('The store admin has access to discounts administration.'));
+    // Login with store admin.
+    $this->drupalLogin($this->store_admin);
+    // Check the access to the profiles listing.
+    $this->drupalGet('admin/commerce/store/discounts');
+    $this->assertResponse(200, t('The store admin has access to discounts administration.'));
 
-//     // Check the message of no discounts available.
-//     $this->assertText(t('No discounts found.'), t('\'No discounts found.\' message is displayed'));
-//     // Check the add customer profile link.
-//     $this->assertRaw(l('Add discount', 'admin/commerce/store/discounts/add'), t('\'Add discount\' link is present in the page'));
-//   }
+    // Check the message of no discounts available.
+    $this->assertText(t('No discounts found.'), t('\'No discounts found.\' message is displayed'));
+    // Check the add customer profile link.
+    $this->assertRaw(l('Add discount', 'admin/commerce/store/discounts/add'), t('\'Add discount\' link is present in the page'));
+  }
 
 //   /**
 //    * Test the add discount UI.
