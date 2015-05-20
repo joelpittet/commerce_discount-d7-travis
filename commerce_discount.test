@@ -13,7 +13,7 @@ class CommerceDiscountTestBase extends CommerceBaseTestCase {
   /**
    * Don't need most of default core modules.
    */
-  // protected $profile = 'minimal';
+  protected $profile = 'minimal';
 
   /**
    * Dummy commerce_product and related product node.
