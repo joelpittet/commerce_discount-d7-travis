@@ -352,236 +352,236 @@ class CommerceDiscountTest extends CommerceDiscountTestBase {
     // $this->assertRaw(t('No discounts found.', array('@link' => url('admin/commerce/store/discounts/add'))), t('Empty discount listing message is displayed'));
   }
 
-  /**
-   * Test the importing of commerce discounts.
-   */
-  public function testCommerceDiscountImport() {
-    // Login store admin.
-    $this->drupalLogin($this->store_admin);
+//   /**
+//    * Test the importing of commerce discounts.
+//    */
+//   public function testCommerceDiscountImport() {
+//     // Login store admin.
+//     $this->drupalLogin($this->store_admin);
 
-    // Access to the admin discount creation page.
-    $this->drupalGet('admin/commerce/store/discounts/import');
-    $this->assertResponse(200, t('Store admin is allowed in the discounts import page'));
+//     // Access to the admin discount creation page.
+//     $this->drupalGet('admin/commerce/store/discounts/import');
+//     $this->assertResponse(200, t('Store admin is allowed in the discounts import page'));
 
-    $exported_discount = '{
-  "name" : "pf",
-  "label" : "PF",
-  "type" : "product_discount",
-  "status" : "1",
-  "component_title" : "pf",
-  "commerce_discount_offer" : {
-    "type" : "fixed_amount",
-    "commerce_fixed_amount" : { "und" : [
-        {
-          "amount" : "1200",
-          "currency_code" : "USD",
-          "data" : { "components" : [] }
-        }
-      ]
-    }
-  },
-  "inline_conditions" : []
-}';
+//     $exported_discount = '{
+//   "name" : "pf",
+//   "label" : "PF",
+//   "type" : "product_discount",
+//   "status" : "1",
+//   "component_title" : "pf",
+//   "commerce_discount_offer" : {
+//     "type" : "fixed_amount",
+//     "commerce_fixed_amount" : { "und" : [
+//         {
+//           "amount" : "1200",
+//           "currency_code" : "USD",
+//           "data" : { "components" : [] }
+//         }
+//       ]
+//     }
+//   },
+//   "inline_conditions" : []
+// }';
 
-    // Import the discount.
-    $import = entity_import('commerce_discount', $exported_discount);
-    $this->assertNotNull($import, t('Entity export JSON imported successfully.'));
-    entity_save('commerce_discount', $import);
+//     // Import the discount.
+//     $import = entity_import('commerce_discount', $exported_discount);
+//     $this->assertNotNull($import, t('Entity export JSON imported successfully.'));
+//     entity_save('commerce_discount', $import);
 
-    // Export the discount to make sure it's identical to the import string.
-    $discount = entity_load_single('commerce_discount', $import->discount_id);
-    $export = entity_export('commerce_discount', $discount);
-    $this->assertTrue($exported_discount == $export, t('Exported discount is identical to its origin.'));
-  }
+//     // Export the discount to make sure it's identical to the import string.
+//     $discount = entity_load_single('commerce_discount', $import->discount_id);
+//     $export = entity_export('commerce_discount', $discount);
+//     $this->assertTrue($exported_discount == $export, t('Exported discount is identical to its origin.'));
+//   }
 
-  /**
-   * Test fixed order discounts.
-   */
-  public function testCommerceDiscountFixedOrderDiscount() {
-    // Testing fixed discount.
-    // Create a fixed order discount of $3.
-    $discount = $this->createDiscount('order_discount', 'fixed_amount', 300);
+//   /**
+//    * Test fixed order discounts.
+//    */
+//   public function testCommerceDiscountFixedOrderDiscount() {
+//     // Testing fixed discount.
+//     // Create a fixed order discount of $3.
+//     $discount = $this->createDiscount('order_discount', 'fixed_amount', 300);
 
-    // Create an order.
-    $order = $this->createDummyOrder($this->store_customer->uid, array($this->product->product_id => 1), 'complete');
+//     // Create an order.
+//     $order = $this->createDummyOrder($this->store_customer->uid, array($this->product->product_id => 1), 'complete');
 
-    $wrapper = entity_metadata_wrapper('commerce_order', $order);
+//     $wrapper = entity_metadata_wrapper('commerce_order', $order);
 
-    // Recalculate discounts.
-    commerce_cart_order_refresh($order);
+//     // Recalculate discounts.
+//     commerce_cart_order_refresh($order);
 
-    // Check if the discount was applied on the order total price.
-    $this->assertTrue($wrapper->commerce_order_total->amount->value() == 700, t('Fixed order discount is deducted correctly.'));
+//     // Check if the discount was applied on the order total price.
+//     $this->assertTrue($wrapper->commerce_order_total->amount->value() == 700, t('Fixed order discount is deducted correctly.'));
 
-    // Disable the discount.
-    $discount->status = FALSE;
-    entity_save('commerce_discount', $discount);
+//     // Disable the discount.
+//     $discount->status = FALSE;
+//     entity_save('commerce_discount', $discount);
 
-    // Resave the order.
-    // Check if the discount was applied on the order total price.
-    $wrapper = entity_metadata_wrapper('commerce_order', $order);
-    $wrapper->save();
+//     // Resave the order.
+//     // Check if the discount was applied on the order total price.
+//     $wrapper = entity_metadata_wrapper('commerce_order', $order);
+//     $wrapper->save();
 
-    // Recalculate discounts.
-    commerce_cart_order_refresh($order);
+//     // Recalculate discounts.
+//     commerce_cart_order_refresh($order);
 
-    $this->assertTrue($wrapper->commerce_order_total->amount->value() == 1000, t('Fixed order discount is removed when it\'s not appliable.'));
-  }
+//     $this->assertTrue($wrapper->commerce_order_total->amount->value() == 1000, t('Fixed order discount is removed when it\'s not appliable.'));
+//   }
 
-  /**
-   * Test percentage order discounts.
-   */
-  public function testCommerceDiscountPercentageOrderDiscount() {
-    // Testing percentage discount.
-    // Create a percentage order discount of 5%.
-    $discount = $this->createDiscount('order_discount', 'percentage', 5);
-    // Create a completed order.
-    $order = $this->createDummyOrder($this->store_customer->uid, array($this->product->product_id => 1), 'complete');
-    $wrapper = entity_metadata_wrapper('commerce_order', $order);
+//   /**
+//    * Test percentage order discounts.
+//    */
+//   public function testCommerceDiscountPercentageOrderDiscount() {
+//     // Testing percentage discount.
+//     // Create a percentage order discount of 5%.
+//     $discount = $this->createDiscount('order_discount', 'percentage', 5);
+//     // Create a completed order.
+//     $order = $this->createDummyOrder($this->store_customer->uid, array($this->product->product_id => 1), 'complete');
+//     $wrapper = entity_metadata_wrapper('commerce_order', $order);
 
-    // Recalculate discounts.
-    commerce_cart_order_refresh($order);
+//     // Recalculate discounts.
+//     commerce_cart_order_refresh($order);
 
-    // Check if the discount was applied on the order total price.
-    $this->assertTrue($wrapper->commerce_order_total->amount->value() == 950, t('Percentage order discount is deducted correctly.'));
+//     // Check if the discount was applied on the order total price.
+//     $this->assertTrue($wrapper->commerce_order_total->amount->value() == 950, t('Percentage order discount is deducted correctly.'));
 
-    // Disable the discount.
-    $discount->status = FALSE;
-    entity_save('commerce_discount', $discount);
+//     // Disable the discount.
+//     $discount->status = FALSE;
+//     entity_save('commerce_discount', $discount);
 
-    // Resave the order.
-    // Check if the discount was applied on the order total price.
-    $wrapper = entity_metadata_wrapper('commerce_order', $order);
-    $wrapper->save();
+//     // Resave the order.
+//     // Check if the discount was applied on the order total price.
+//     $wrapper = entity_metadata_wrapper('commerce_order', $order);
+//     $wrapper->save();
 
-    // Recalculate discounts.
-    commerce_cart_order_refresh($order);
+//     // Recalculate discounts.
+//     commerce_cart_order_refresh($order);
 
-    $this->assertTrue($wrapper->commerce_order_total->amount->value() == 1000, t("Percentage order discount is removed when it's not appliable."));
-  }
+//     $this->assertTrue($wrapper->commerce_order_total->amount->value() == 1000, t("Percentage order discount is removed when it's not appliable."));
+//   }
 
-  /**
-   * Test Free products order discounts.
-   */
-  public function testCommerceDiscountFreeProductsOrderDiscount() {
-    // Testing Free products discount.
-    // Create a Free products product discount.
-    $discount = $this->createDiscount('product_discount', 'free_products', array($this->product->product_id));
-    // Create a completed order.
-    $order = $this->createDummyOrder($this->store_customer->uid, array($this->product->product_id => 1), 'complete');
-    $wrapper = entity_metadata_wrapper('commerce_order', $order);
+//   /**
+//    * Test Free products order discounts.
+//    */
+//   public function testCommerceDiscountFreeProductsOrderDiscount() {
+//     // Testing Free products discount.
+//     // Create a Free products product discount.
+//     $discount = $this->createDiscount('product_discount', 'free_products', array($this->product->product_id));
+//     // Create a completed order.
+//     $order = $this->createDummyOrder($this->store_customer->uid, array($this->product->product_id => 1), 'complete');
+//     $wrapper = entity_metadata_wrapper('commerce_order', $order);
 
-    // Recalculate discounts.
-    commerce_cart_order_refresh($order);
+//     // Recalculate discounts.
+//     commerce_cart_order_refresh($order);
 
-    // Check if the discount was applied on the order total price.
-    // @todo Fix this assertion.
-    // $this->assertTrue($wrapper->commerce_order_total->amount->value() == 0, t('Free Products order discount is deducted correctly.'));
+//     // Check if the discount was applied on the order total price.
+//     // @todo Fix this assertion.
+//     // $this->assertTrue($wrapper->commerce_order_total->amount->value() == 0, t('Free Products order discount is deducted correctly.'));
 
-    // Disable the discount.
-    $discount->status = FALSE;
-    entity_save('commerce_discount', $discount);
+//     // Disable the discount.
+//     $discount->status = FALSE;
+//     entity_save('commerce_discount', $discount);
 
-    // Resave the order.
-    // Check if the discount was applied on the order total price.
-    $wrapper = entity_metadata_wrapper('commerce_order', $order);
-    $wrapper->save();
+//     // Resave the order.
+//     // Check if the discount was applied on the order total price.
+//     $wrapper = entity_metadata_wrapper('commerce_order', $order);
+//     $wrapper->save();
 
-    // Recalculate discounts.
-    commerce_cart_order_refresh($order);
+//     // Recalculate discounts.
+//     commerce_cart_order_refresh($order);
 
-    $this->assertTrue($wrapper->commerce_order_total->amount->value() == 1000, t("Free Products order discount is removed when it's not appliable."));
-  }
+//     $this->assertTrue($wrapper->commerce_order_total->amount->value() == 1000, t("Free Products order discount is removed when it's not appliable."));
+//   }
 
-  /**
-   * Test fixed product discounts.
-   */
-  public function testCommerceDiscountFixedProductDiscount() {
-    $discount = $this->createDiscount('product_discount', 'fixed_amount', 300);
+//   /**
+//    * Test fixed product discounts.
+//    */
+//   public function testCommerceDiscountFixedProductDiscount() {
+//     $discount = $this->createDiscount('product_discount', 'fixed_amount', 300);
 
-    // Create an order.
-    $order = $this->createDummyOrder($this->store_customer->uid, array($this->product->product_id => 1), 'complete');
-    $wrapper = entity_metadata_wrapper('commerce_order', $order);
+//     // Create an order.
+//     $order = $this->createDummyOrder($this->store_customer->uid, array($this->product->product_id => 1), 'complete');
+//     $wrapper = entity_metadata_wrapper('commerce_order', $order);
 
-    // Invoke line item price re-calculation.
-    $line_item = $wrapper->commerce_line_items->get(0)->value();
-    rules_invoke_event('commerce_product_calculate_sell_price', $line_item);
+//     // Invoke line item price re-calculation.
+//     $line_item = $wrapper->commerce_line_items->get(0)->value();
+//     rules_invoke_event('commerce_product_calculate_sell_price', $line_item);
 
-    // Check if the discount was added as a component to the line item.
-    $line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $line_item);
-    $price_data = $line_item_wrapper->commerce_unit_price->data->value();
+//     // Check if the discount was added as a component to the line item.
+//     $line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $line_item);
+//     $price_data = $line_item_wrapper->commerce_unit_price->data->value();
 
-    $this->assertTrue($price_data['components'][1]['price']['amount'] == -300, t('Fixed product discount is added as a price component to the line item.'));
-  }
+//     $this->assertTrue($price_data['components'][1]['price']['amount'] == -300, t('Fixed product discount is added as a price component to the line item.'));
+//   }
 
-  /**
-   * Test percentage product discounts.
-   */
-  public function testCommerceDiscountPercentageProductDiscount() {
-    $discount = $this->createDiscount('product_discount', 'percentage', 5);
+//   /**
+//    * Test percentage product discounts.
+//    */
+//   public function testCommerceDiscountPercentageProductDiscount() {
+//     $discount = $this->createDiscount('product_discount', 'percentage', 5);
 
-    // Create an order.
-    $order = $this->createDummyOrder($this->store_customer->uid, array($this->product->product_id => 1), 'complete');
-    $wrapper = entity_metadata_wrapper('commerce_order', $order);
+//     // Create an order.
+//     $order = $this->createDummyOrder($this->store_customer->uid, array($this->product->product_id => 1), 'complete');
+//     $wrapper = entity_metadata_wrapper('commerce_order', $order);
 
-    // Invoke line item price re-calculation.
-    $line_item = $wrapper->commerce_line_items->get(0)->value();
-    rules_invoke_event('commerce_product_calculate_sell_price', $line_item);
+//     // Invoke line item price re-calculation.
+//     $line_item = $wrapper->commerce_line_items->get(0)->value();
+//     rules_invoke_event('commerce_product_calculate_sell_price', $line_item);
 
-    // Check if the discount was added as a component to the line item.
-    $line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $line_item);
-    $price_data = $line_item_wrapper->commerce_unit_price->data->value();
+//     // Check if the discount was added as a component to the line item.
+//     $line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $line_item);
+//     $price_data = $line_item_wrapper->commerce_unit_price->data->value();
 
-    $this->assertTrue($price_data['components'][1]['price']['amount'] == -50, t('Percentage product discount is added as a price component to the line item.'));
-  }
+//     $this->assertTrue($price_data['components'][1]['price']['amount'] == -50, t('Percentage product discount is added as a price component to the line item.'));
+//   }
 
-  /**
-   * Test discounted product price display.
-   */
-  public function testCommerceDiscountDiscountedProductPriceDisplay() {
-    // Create a product discount.
-    $discount = $this->createDiscount('product_discount', 'fixed_amount', 300);
-    $formatted_discounted_price = '$7.00';
+//   /**
+//    * Test discounted product price display.
+//    */
+//   public function testCommerceDiscountDiscountedProductPriceDisplay() {
+//     // Create a product discount.
+//     $discount = $this->createDiscount('product_discount', 'fixed_amount', 300);
+//     $formatted_discounted_price = '$7.00';
 
-    // Log as a normal user.
-    $this->drupalLogin($this->store_customer);
+//     // Log as a normal user.
+//     $this->drupalLogin($this->store_customer);
 
-    $nid = $this->product_node->nid;
-    // View a product node.
-    $this->drupalGet("node/$nid");
-    $product_price = $this->xpath('//div[contains(@class, "field-name-commerce-price")]/div[contains(@class, "field-item")]');
-    $this->assertTrue(trim((string)$product_price[0]->div) == $formatted_discounted_price, t('Discounted product price is shown on product page.'));
+//     $nid = $this->product_node->nid;
+//     // View a product node.
+//     $this->drupalGet("node/$nid");
+//     $product_price = $this->xpath('//div[contains(@class, "field-name-commerce-price")]/div[contains(@class, "field-item")]');
+//     $this->assertTrue(trim((string)$product_price[0]->div) == $formatted_discounted_price, t('Discounted product price is shown on product page.'));
 
-    // Add a product to the cart.
-    $this->drupalPost('node/' . $this->product_node->nid, array(), t('Add to cart'));
+//     // Add a product to the cart.
+//     $this->drupalPost('node/' . $this->product_node->nid, array(), t('Add to cart'));
 
-    // View the cart.
-    $this->drupalGet('cart');
-    $product_price = $this->xpath('//td[contains(@class, "views-field-commerce-unit-price")]');
-    $this->assertTrue(trim((string)$product_price[0]->{0}) == $formatted_discounted_price, t('Discounted product price is shown on the cart.'));
-  }
+//     // View the cart.
+//     $this->drupalGet('cart');
+//     $product_price = $this->xpath('//td[contains(@class, "views-field-commerce-unit-price")]');
+//     $this->assertTrue(trim((string)$product_price[0]->{0}) == $formatted_discounted_price, t('Discounted product price is shown on the cart.'));
+//   }
 
-  /**
-   * Test multiple fixed order discounts.
-   */
-  public function testCommerceDiscountMultipleFixedOrderDiscounts() {
-    // Create two discounts.
-    $discount = $this->createDiscount('order_discount', 'fixed_amount', 300, 'of1');
-    $discount = $this->createDiscount('order_discount', 'fixed_amount', 200, 'of2');
+//   /**
+//    * Test multiple fixed order discounts.
+//    */
+//   public function testCommerceDiscountMultipleFixedOrderDiscounts() {
+//     // Create two discounts.
+//     $discount = $this->createDiscount('order_discount', 'fixed_amount', 300, 'of1');
+//     $discount = $this->createDiscount('order_discount', 'fixed_amount', 200, 'of2');
 
-    // Create an order.
-    $order = $this->createDummyOrder($this->store_customer->uid, array($this->product->product_id => 1), 'complete');
-    entity_get_controller('commerce_order')->resetCache(array($order->order_id));
+//     // Create an order.
+//     $order = $this->createDummyOrder($this->store_customer->uid, array($this->product->product_id => 1), 'complete');
+//     entity_get_controller('commerce_order')->resetCache(array($order->order_id));
 
-    $wrapper = entity_metadata_wrapper('commerce_order', $order);
+//     $wrapper = entity_metadata_wrapper('commerce_order', $order);
 
-    // Recalculate discounts.
-    commerce_cart_order_refresh($order);
+//     // Recalculate discounts.
+//     commerce_cart_order_refresh($order);
 
-    $this->assertTrue($wrapper->commerce_discounts->count() == 2, t('2 discounts are listed as applied on the order.'));
-    $this->assertTrue($wrapper->commerce_order_total->amount->value() == 500, t('Two fixed order discounts are applied on the total price.'));
-    $this->assertTrue($wrapper->commerce_line_items->count() == 3, t('An order with one product and two fixed order discounts has three line items.'));
-    $wrapper->save();
-    $this->assertTrue($wrapper->commerce_line_items->count() == 3, t('After updating the order it still has three line items.'));
-  }
+//     $this->assertTrue($wrapper->commerce_discounts->count() == 2, t('2 discounts are listed as applied on the order.'));
+//     $this->assertTrue($wrapper->commerce_order_total->amount->value() == 500, t('Two fixed order discounts are applied on the total price.'));
+//     $this->assertTrue($wrapper->commerce_line_items->count() == 3, t('An order with one product and two fixed order discounts has three line items.'));
+//     $wrapper->save();
+//     $this->assertTrue($wrapper->commerce_line_items->count() == 3, t('After updating the order it still has three line items.'));
+//   }
 }
