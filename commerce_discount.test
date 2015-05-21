@@ -515,26 +515,26 @@ class CommerceDiscountTest extends CommerceDiscountTestBase {
 //     $this->assertTrue($price_data['components'][1]['price']['amount'] == -300, t('Fixed product discount is added as a price component to the line item.'));
 //   }
 
-//   /**
-//    * Test percentage product discounts.
-//    */
-//   public function testCommerceDiscountPercentageProductDiscount() {
-//     $discount = $this->createDiscount('product_discount', 'percentage', 5);
+  /**
+   * Test percentage product discounts.
+   */
+  public function testCommerceDiscountPercentageProductDiscount() {
+    $discount = $this->createDiscount('product_discount', 'percentage', 5);
 
-//     // Create an order.
-//     $order = $this->createDummyOrder($this->store_customer->uid, array($this->product->product_id => 1), 'complete');
-//     $wrapper = entity_metadata_wrapper('commerce_order', $order);
+    // Create an order.
+    $order = $this->createDummyOrder($this->store_customer->uid, array($this->product->product_id => 1), 'complete');
+    $wrapper = entity_metadata_wrapper('commerce_order', $order);
 
-//     // Invoke line item price re-calculation.
-//     $line_item = $wrapper->commerce_line_items->get(0)->value();
-//     rules_invoke_event('commerce_product_calculate_sell_price', $line_item);
+    // Invoke line item price re-calculation.
+    $line_item = $wrapper->commerce_line_items->get(0)->value();
+    rules_invoke_event('commerce_product_calculate_sell_price', $line_item);
 
-//     // Check if the discount was added as a component to the line item.
-//     $line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $line_item);
-//     $price_data = $line_item_wrapper->commerce_unit_price->data->value();
+    // Check if the discount was added as a component to the line item.
+    $line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $line_item);
+    $price_data = $line_item_wrapper->commerce_unit_price->data->value();
 
-//     $this->assertTrue($price_data['components'][1]['price']['amount'] == -50, t('Percentage product discount is added as a price component to the line item.'));
-//   }
+    $this->assertTrue($price_data['components'][1]['price']['amount'] == -50, t('Percentage product discount is added as a price component to the line item.'));
+  }
 
   /**
    * Test discounted product price display.
