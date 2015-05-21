@@ -10,4 +10,4 @@ dependencies[] = commerce_discount
 files[] = includes/views/handlers/commerce_discount_usage_handler_field_commerce_discount_analytics.inc
 
 ; Simple tests
-;files[] = commerce_discount_usage.test
+files[] = commerce_discount_usage.test

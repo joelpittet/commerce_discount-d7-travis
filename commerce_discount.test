@@ -395,125 +395,125 @@ class CommerceDiscountTest extends CommerceDiscountTestBase {
 //     $this->assertTrue($exported_discount == $export, t('Exported discount is identical to its origin.'));
 //   }
 
-//   /**
-//    * Test fixed order discounts.
-//    */
-//   public function testCommerceDiscountFixedOrderDiscount() {
-//     // Testing fixed discount.
-//     // Create a fixed order discount of $3.
-//     $discount = $this->createDiscount('order_discount', 'fixed_amount', 300);
+  /**
+   * Test fixed order discounts.
+   */
+  public function testCommerceDiscountFixedOrderDiscount() {
+    // Testing fixed discount.
+    // Create a fixed order discount of $3.
+    $discount = $this->createDiscount('order_discount', 'fixed_amount', 300);
 
-//     // Create an order.
-//     $order = $this->createDummyOrder($this->store_customer->uid, array($this->product->product_id => 1), 'complete');
+    // Create an order.
+    $order = $this->createDummyOrder($this->store_customer->uid, array($this->product->product_id => 1), 'complete');
 
-//     $wrapper = entity_metadata_wrapper('commerce_order', $order);
+    $wrapper = entity_metadata_wrapper('commerce_order', $order);
 
-//     // Recalculate discounts.
-//     commerce_cart_order_refresh($order);
+    // Recalculate discounts.
+    commerce_cart_order_refresh($order);
 
-//     // Check if the discount was applied on the order total price.
-//     $this->assertTrue($wrapper->commerce_order_total->amount->value() == 700, t('Fixed order discount is deducted correctly.'));
+    // Check if the discount was applied on the order total price.
+    $this->assertTrue($wrapper->commerce_order_total->amount->value() == 700, t('Fixed order discount is deducted correctly.'));
 
-//     // Disable the discount.
-//     $discount->status = FALSE;
-//     entity_save('commerce_discount', $discount);
+    // Disable the discount.
+    $discount->status = FALSE;
+    entity_save('commerce_discount', $discount);
 
-//     // Resave the order.
-//     // Check if the discount was applied on the order total price.
-//     $wrapper = entity_metadata_wrapper('commerce_order', $order);
-//     $wrapper->save();
+    // Resave the order.
+    // Check if the discount was applied on the order total price.
+    $wrapper = entity_metadata_wrapper('commerce_order', $order);
+    $wrapper->save();
 
-//     // Recalculate discounts.
-//     commerce_cart_order_refresh($order);
+    // Recalculate discounts.
+    commerce_cart_order_refresh($order);
 
-//     $this->assertTrue($wrapper->commerce_order_total->amount->value() == 1000, t('Fixed order discount is removed when it\'s not appliable.'));
-//   }
+    $this->assertTrue($wrapper->commerce_order_total->amount->value() == 1000, t('Fixed order discount is removed when it\'s not appliable.'));
+  }
 
-//   /**
-//    * Test percentage order discounts.
-//    */
-//   public function testCommerceDiscountPercentageOrderDiscount() {
-//     // Testing percentage discount.
-//     // Create a percentage order discount of 5%.
-//     $discount = $this->createDiscount('order_discount', 'percentage', 5);
-//     // Create a completed order.
-//     $order = $this->createDummyOrder($this->store_customer->uid, array($this->product->product_id => 1), 'complete');
-//     $wrapper = entity_metadata_wrapper('commerce_order', $order);
+  /**
+   * Test percentage order discounts.
+   */
+  public function testCommerceDiscountPercentageOrderDiscount() {
+    // Testing percentage discount.
+    // Create a percentage order discount of 5%.
+    $discount = $this->createDiscount('order_discount', 'percentage', 5);
+    // Create a completed order.
+    $order = $this->createDummyOrder($this->store_customer->uid, array($this->product->product_id => 1), 'complete');
+    $wrapper = entity_metadata_wrapper('commerce_order', $order);
 
-//     // Recalculate discounts.
-//     commerce_cart_order_refresh($order);
+    // Recalculate discounts.
+    commerce_cart_order_refresh($order);
 
-//     // Check if the discount was applied on the order total price.
-//     $this->assertTrue($wrapper->commerce_order_total->amount->value() == 950, t('Percentage order discount is deducted correctly.'));
+    // Check if the discount was applied on the order total price.
+    $this->assertTrue($wrapper->commerce_order_total->amount->value() == 950, t('Percentage order discount is deducted correctly.'));
 
-//     // Disable the discount.
-//     $discount->status = FALSE;
-//     entity_save('commerce_discount', $discount);
+    // Disable the discount.
+    $discount->status = FALSE;
+    entity_save('commerce_discount', $discount);
 
-//     // Resave the order.
-//     // Check if the discount was applied on the order total price.
-//     $wrapper = entity_metadata_wrapper('commerce_order', $order);
-//     $wrapper->save();
+    // Resave the order.
+    // Check if the discount was applied on the order total price.
+    $wrapper = entity_metadata_wrapper('commerce_order', $order);
+    $wrapper->save();
 
-//     // Recalculate discounts.
-//     commerce_cart_order_refresh($order);
+    // Recalculate discounts.
+    commerce_cart_order_refresh($order);
 
-//     $this->assertTrue($wrapper->commerce_order_total->amount->value() == 1000, t("Percentage order discount is removed when it's not appliable."));
-//   }
+    $this->assertTrue($wrapper->commerce_order_total->amount->value() == 1000, t("Percentage order discount is removed when it's not appliable."));
+  }
 
-//   /**
-//    * Test Free products order discounts.
-//    */
-//   public function testCommerceDiscountFreeProductsOrderDiscount() {
-//     // Testing Free products discount.
-//     // Create a Free products product discount.
-//     $discount = $this->createDiscount('product_discount', 'free_products', array($this->product->product_id));
-//     // Create a completed order.
-//     $order = $this->createDummyOrder($this->store_customer->uid, array($this->product->product_id => 1), 'complete');
-//     $wrapper = entity_metadata_wrapper('commerce_order', $order);
+  /**
+   * Test Free products order discounts.
+   */
+  public function testCommerceDiscountFreeProductsOrderDiscount() {
+    // Testing Free products discount.
+    // Create a Free products product discount.
+    $discount = $this->createDiscount('product_discount', 'free_products', array($this->product->product_id));
+    // Create a completed order.
+    $order = $this->createDummyOrder($this->store_customer->uid, array($this->product->product_id => 1), 'complete');
+    $wrapper = entity_metadata_wrapper('commerce_order', $order);
 
-//     // Recalculate discounts.
-//     commerce_cart_order_refresh($order);
+    // Recalculate discounts.
+    commerce_cart_order_refresh($order);
 
-//     // Check if the discount was applied on the order total price.
-//     // @todo Fix this assertion.
-//     // $this->assertTrue($wrapper->commerce_order_total->amount->value() == 0, t('Free Products order discount is deducted correctly.'));
+    // Check if the discount was applied on the order total price.
+    // @todo Fix this assertion.
+    // $this->assertTrue($wrapper->commerce_order_total->amount->value() == 0, t('Free Products order discount is deducted correctly.'));
 
-//     // Disable the discount.
-//     $discount->status = FALSE;
-//     entity_save('commerce_discount', $discount);
+    // Disable the discount.
+    $discount->status = FALSE;
+    entity_save('commerce_discount', $discount);
 
-//     // Resave the order.
-//     // Check if the discount was applied on the order total price.
-//     $wrapper = entity_metadata_wrapper('commerce_order', $order);
-//     $wrapper->save();
+    // Resave the order.
+    // Check if the discount was applied on the order total price.
+    $wrapper = entity_metadata_wrapper('commerce_order', $order);
+    $wrapper->save();
 
-//     // Recalculate discounts.
-//     commerce_cart_order_refresh($order);
+    // Recalculate discounts.
+    commerce_cart_order_refresh($order);
 
-//     $this->assertTrue($wrapper->commerce_order_total->amount->value() == 1000, t("Free Products order discount is removed when it's not appliable."));
-//   }
+    $this->assertTrue($wrapper->commerce_order_total->amount->value() == 1000, t("Free Products order discount is removed when it's not appliable."));
+  }
 
-//   /**
-//    * Test fixed product discounts.
-//    */
-//   public function testCommerceDiscountFixedProductDiscount() {
-//     $discount = $this->createDiscount('product_discount', 'fixed_amount', 300);
+  /**
+   * Test fixed product discounts.
+   */
+  public function testCommerceDiscountFixedProductDiscount() {
+    $discount = $this->createDiscount('product_discount', 'fixed_amount', 300);
 
-//     // Create an order.
-//     $order = $this->createDummyOrder($this->store_customer->uid, array($this->product->product_id => 1), 'complete');
-//     $wrapper = entity_metadata_wrapper('commerce_order', $order);
+    // Create an order.
+    $order = $this->createDummyOrder($this->store_customer->uid, array($this->product->product_id => 1), 'complete');
+    $wrapper = entity_metadata_wrapper('commerce_order', $order);
 
-//     // Invoke line item price re-calculation.
-//     $line_item = $wrapper->commerce_line_items->get(0)->value();
-//     rules_invoke_event('commerce_product_calculate_sell_price', $line_item);
+    // Invoke line item price re-calculation.
+    $line_item = $wrapper->commerce_line_items->get(0)->value();
+    rules_invoke_event('commerce_product_calculate_sell_price', $line_item);
 
-//     // Check if the discount was added as a component to the line item.
-//     $line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $line_item);
-//     $price_data = $line_item_wrapper->commerce_unit_price->data->value();
+    // Check if the discount was added as a component to the line item.
+    $line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $line_item);
+    $price_data = $line_item_wrapper->commerce_unit_price->data->value();
 
-//     $this->assertTrue($price_data['components'][1]['price']['amount'] == -300, t('Fixed product discount is added as a price component to the line item.'));
-//   }
+    $this->assertTrue($price_data['components'][1]['price']['amount'] == -300, t('Fixed product discount is added as a price component to the line item.'));
+  }
 
   /**
    * Test percentage product discounts.
