@@ -352,47 +352,47 @@ class CommerceDiscountTest extends CommerceDiscountTestBase {
     // $this->assertRaw(t('No discounts found.', array('@link' => url('admin/commerce/store/discounts/add'))), t('Empty discount listing message is displayed'));
   // }
 
-//   /**
-//    * Test the importing of commerce discounts.
-//    */
-//   public function testCommerceDiscountImport() {
-//     // Login store admin.
-//     $this->drupalLogin($this->store_admin);
+  /**
+   * Test the importing of commerce discounts.
+   */
+  public function testCommerceDiscountImport() {
+    // Login store admin.
+    $this->drupalLogin($this->store_admin);
 
-//     // Access to the admin discount creation page.
-//     $this->drupalGet('admin/commerce/store/discounts/import');
-//     $this->assertResponse(200, t('Store admin is allowed in the discounts import page'));
+    // Access to the admin discount creation page.
+    $this->drupalGet('admin/commerce/store/discounts/import');
+    $this->assertResponse(200, t('Store admin is allowed in the discounts import page'));
 
-//     $exported_discount = '{
-//   "name" : "pf",
-//   "label" : "PF",
-//   "type" : "product_discount",
-//   "status" : "1",
-//   "component_title" : "pf",
-//   "commerce_discount_offer" : {
-//     "type" : "fixed_amount",
-//     "commerce_fixed_amount" : { "und" : [
-//         {
-//           "amount" : "1200",
-//           "currency_code" : "USD",
-//           "data" : { "components" : [] }
-//         }
-//       ]
-//     }
-//   },
-//   "inline_conditions" : []
-// }';
+    $exported_discount = '{
+  "name" : "pf",
+  "label" : "PF",
+  "type" : "product_discount",
+  "status" : "1",
+  "component_title" : "pf",
+  "commerce_discount_offer" : {
+    "type" : "fixed_amount",
+    "commerce_fixed_amount" : { "und" : [
+        {
+          "amount" : "1200",
+          "currency_code" : "USD",
+          "data" : { "components" : [] }
+        }
+      ]
+    }
+  },
+  "inline_conditions" : []
+}';
 
-//     // Import the discount.
-//     $import = entity_import('commerce_discount', $exported_discount);
-//     $this->assertNotNull($import, t('Entity export JSON imported successfully.'));
-//     entity_save('commerce_discount', $import);
+    // Import the discount.
+    $import = entity_import('commerce_discount', $exported_discount);
+    $this->assertNotNull($import, t('Entity export JSON imported successfully.'));
+    entity_save('commerce_discount', $import);
 
-//     // Export the discount to make sure it's identical to the import string.
-//     $discount = entity_load_single('commerce_discount', $import->discount_id);
-//     $export = entity_export('commerce_discount', $discount);
-//     $this->assertTrue($exported_discount == $export, t('Exported discount is identical to its origin.'));
-//   }
+    // Export the discount to make sure it's identical to the import string.
+    $discount = entity_load_single('commerce_discount', $import->discount_id);
+    $export = entity_export('commerce_discount', $discount);
+    $this->assertTrue($exported_discount == $export, t('Exported discount is identical to its origin.'));
+  }
 
   /**
    * Test fixed order discounts.
