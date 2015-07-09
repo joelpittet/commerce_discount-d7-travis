@@ -150,6 +150,11 @@ function commerce_discount_usage_order_discounts($order) {
   $order_discounts = array();
 
   foreach ($order_wrapper->commerce_line_items as $line_item_wrapper) {
+    // If the current line item actually no longer exists, continue.
+    if (!$line_item_wrapper->value()) {
+      continue;
+    }
+
     $data = $line_item_wrapper->commerce_unit_price->data->value();
 
     foreach ($data['components'] as $key => $component) {
