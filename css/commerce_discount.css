@@ -108,25 +108,19 @@
 }
 .field-name-commerce-discount-offer .form-wrapper .form-wrapper .form-item {
   margin-bottom: 2px;
-  padding: 0;
 }
 .field-name-commerce-discount-offer .form-wrapper .form-wrapper .form-item label {
   border-bottom: 1px solid #cccccc;
   padding-left: 5px;
 }
 .field-name-commerce-discount-offer .form-wrapper .form-wrapper .form-item div.form-radios {
-  padding: 0px;
   clear: both;
-  margin-top: 10px;
   background-color: transparent;
+  /* LTR */
   border-right: 1px dotted #cccccc;
-  /* LTR */
   float: left;
-  /* LTR */
-  margin: 10px;
-  padding: 4px;
-  padding-right: 20px;
-  /* LTR */
+  margin: 10px 20px 10px 10px;
+  padding: 4px 20px 4px 0px;
 }
 .field-name-commerce-discount-offer .form-wrapper .form-wrapper .form-item div.form-radios .form-item {
   color: black;
@@ -159,12 +153,8 @@
   border-bottom: 0;
   padding-left: 0;
 }
-.field-name-commerce-discount-offer .form-wrapper .form-wrapper .form-wrapper .form-item {
-    background-color: transparent;
-    float: left;
-    /* LTR */
-    margin: 10px;
-    padding: 4px;
+.field-name-commerce-discount-offer .commerce-offer-fields-wrapper {
+  float: left;
 }
 
 /**
