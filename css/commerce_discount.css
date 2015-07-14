@@ -109,11 +109,11 @@
 .field-name-commerce-discount-offer .form-wrapper .form-wrapper .form-item {
   margin-bottom: 2px;
 }
-.field-name-commerce-discount-offer .form-wrapper .form-wrapper .form-item label {
+.field-name-commerce-discount-offer .form-item-commerce-discount-fields-commerce-discount-offer-und-form-type label {
   border-bottom: 1px solid #cccccc;
   padding-left: 5px;
 }
-.field-name-commerce-discount-offer .form-wrapper .form-wrapper .form-item div.form-radios {
+.field-name-commerce-discount-offer .form-item-commerce-discount-fields-commerce-discount-offer-und-form-type .form-radios {
   clear: both;
   background-color: transparent;
   /* LTR */
@@ -122,30 +122,30 @@
   margin: 10px 20px 10px 10px;
   padding: 4px 20px 4px 0px;
 }
-.field-name-commerce-discount-offer .form-wrapper .form-wrapper .form-item div.form-radios .form-item {
+.field-name-commerce-discount-offer .form-item-commerce-discount-fields-commerce-discount-offer-und-form-type .form-radios .form-item {
   color: black;
   border-radius: 5px;
   margin-right: 20px;
   margin-bottom: 5px;
   padding: 5px;
 }
-.field-name-commerce-discount-offer .form-wrapper .form-wrapper .form-item div.form-radios .form-item:hover {
+.field-name-commerce-discount-offer .form-item-commerce-discount-fields-commerce-discount-offer-und-form-type .form-radios .form-item:hover {
   background-color: #f6f6f6;
   cursor: pointer;
 }
-.field-name-commerce-discount-offer .form-wrapper .form-wrapper .form-item div.form-radios .form-item:hover label {
+.field-name-commerce-discount-offer .form-item-commerce-discount-fields-commerce-discount-offer-und-form-type .form-radios .form-item:hover label {
   cursor: pointer;
 }
-.field-name-commerce-discount-offer .form-wrapper .form-wrapper .form-item div.form-radios .form-item input {
+.field-name-commerce-discount-offer .form-item-commerce-discount-fields-commerce-discount-offer-und-form-type .form-radios .form-item input {
   display: inline;
 }
-.field-name-commerce-discount-offer .form-wrapper .form-wrapper .form-item div.form-radios .form-item.selected {
+.field-name-commerce-discount-offer .form-item-commerce-discount-fields-commerce-discount-offer-und-form-type .form-radios .form-item.selected {
   background-color: #eee;
 }
-.field-name-commerce-discount-offer .form-wrapper .form-wrapper .form-item div.form-radios .form-item .ajax-progress {
+.field-name-commerce-discount-offer .form-item-commerce-discount-fields-commerce-discount-offer-und-form-type .form-radios .form-item .ajax-progress {
   display: none;
 }
-.field-name-commerce-discount-offer .form-wrapper .form-wrapper .form-item div.form-radios label {
+.field-name-commerce-discount-offer .form-item-commerce-discount-fields-commerce-discount-offer-und-form-type .form-radios label {
   border-bottom: 0;
   padding-left: 0;
 }
