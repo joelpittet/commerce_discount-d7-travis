@@ -27,7 +27,7 @@ function commerce_discount_rules_condition_info() {
           'label' => t('Operator'),
           'description' => t('The operator used with the order amount value below.'),
           'default value' => '>=',
-          'options list' => '_inline_conditions_operator_options',
+          'options list' => '_commerce_discount_operator_options',
         ),
         'total' => array(
           'type' => 'commerce_price',
@@ -1081,4 +1081,15 @@ function commerce_discount_set_existing_line_item_price(EntityDrupalWrapper $ord
   }
 
   return $modified_existing;
+}
+
+/**
+ * Options list callback for condition.
+ */
+function _commerce_discount_operator_options() {
+  return array(
+    '<' => t('lower than'),
+    '==' => t('equals'),
+    '>' => t('greater than'),
+  );
 }
