@@ -2,9 +2,12 @@
 
 /**
  * @file
- * Defines the inline entity form controller for Commerce Discount Offers.
+ * Provides Inline Entity Form integration for the Commerce Discount module.
  */
 
+/**
+ * Defines the inline entity form controller for Commerce Discount Offers.
+ */
 class CommerceDiscountOfferInlineEntityFormController extends EntityInlineEntityFormController {
 
   /**
@@ -56,8 +59,8 @@ class CommerceDiscountOfferInlineEntityFormController extends EntityInlineEntity
       '#required' => FALSE,
       '#default_value' => $offer->type,
       '#ajax' => array(
-         'callback' => 'inline_entity_form_get_element',
-         'wrapper' => 'inline-entity-form-' . $entity_form['#ief_id'],
+        'callback' => 'inline_entity_form_get_element',
+        'wrapper' => 'inline-entity-form-' . $entity_form['#ief_id'],
       ),
       '#weight' => -101,
     );
@@ -81,4 +84,5 @@ class CommerceDiscountOfferInlineEntityFormController extends EntityInlineEntity
 
     return $entity_form;
   }
+
 }

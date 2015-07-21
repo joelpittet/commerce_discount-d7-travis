@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * Implements hook_commerce_discount_rule_build().
  */
 function commerce_discount_usage_commerce_discount_rule_build($rule, $discount) {
@@ -38,7 +38,7 @@ function commerce_discount_usage_commerce_discount_rule_build($rule, $discount) 
   }
 }
 
-/*
+/**
  * Implements hook_commerce_discount_usages().
  */
 function commerce_discount_usage_flush_caches() {
@@ -182,21 +182,21 @@ function commerce_discount_usage_order_discounts($order) {
   return $order_discounts;
 }
 
-/*
+/**
  * Implements hook_commerce_order_update().
  */
 function commerce_discount_usage_commerce_order_update($order) {
   commerce_discount_usage_record_order_usage($order);
 }
 
-/*
+/**
  * Implements hook_commerce_order_insert().
  */
 function commerce_discount_usage_commerce_order_insert($order) {
   commerce_discount_usage_record_order_usage($order);
 }
 
-/*
+/**
  * Implements hook_commerce_order_delete().
  */
 function commerce_discount_usage_commerce_order_delete($order) {
@@ -210,7 +210,7 @@ function commerce_discount_usage_form_commerce_discount_form_alter(&$form, $form
   $form['#attached']['css'][] = drupal_get_path('module', 'commerce_discount_usage') . '/css/commerce_discount_usage.css';
 }
 
-/*
+/**
  * Implements hook_views_api().
  */
 function commerce_discount_usage_views_api() {

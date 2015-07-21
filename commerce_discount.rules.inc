@@ -377,7 +377,7 @@ function commerce_order_has_owner_build(EntityDrupalWrapper $wrapper, $account) 
  * Build callback for commerce_order_contains_products.
  *
  * @param EntityDrupalWrapper $wrapper
- *   The wrapped entity given by the rule
+ *   The wrapped entity given by the rule.
  * @param string $products
  *   A list of products SKU.
  *
@@ -562,8 +562,8 @@ function commerce_discount_fixed_amount(EntityDrupalWrapper $wrapper, $discount_
       // @todo: It doesn't work with the wrapper.
       $order = $wrapper->value();
 
-      // If the discount will bring the order to less than zero, set the discount
-      // amount so that it stops at zero.
+      // If the discount will bring the order to less than zero, set the
+      // discount amount so that it stops at zero.
       $order_amount = $wrapper->commerce_order_total->amount->value();
       if (-$discount_price['amount'] > $order_amount) {
         $discount_price['amount'] = -$order_amount;
@@ -645,7 +645,8 @@ function commerce_discount_percentage(EntityDrupalWrapper $wrapper, $discount_na
           'currency_code' => $wrapper->commerce_order_total->currency_code->value(),
         );
 
-        // Modify the existing discount line item or add a new one if that fails.
+        // Modify the existing discount line item or add a new line item
+        // if that fails.
         if (!commerce_discount_set_existing_line_item_price($wrapper, $discount_name, $discount_amount)) {
           commerce_discount_add_line_item($wrapper, $discount_name, $discount_amount);
         }
@@ -727,7 +728,6 @@ function commerce_discount_free_shipping_service($order, $discount_name, $servic
  */
 function commerce_discount_percent_off_shipping_service($order, $discount_name) {
 
-
   // Load the discount wrapper, which has all the discount information in it.
   $discount_wrapper = entity_metadata_wrapper('commerce_discount', $discount_name);
 
@@ -771,7 +771,7 @@ function commerce_discount_percent_off_shipping_service($order, $discount_name) 
       FALSE
     );
   }
-  else{
+  else {
     foreach ($order->shipping_rates as $shipping_service => $shipping_object) {
       // Add singular shipping service to $conf global array.
       $order->shipping_rates[$shipping_service]->data['shipping_service']['description'] .= ' <span class="shipping-discount-text">' . $discount_label . '</span>';
@@ -1012,7 +1012,7 @@ function commerce_discount_set_price_component(EntityDrupalWrapper $line_item_wr
   // Set the new unit price.
   $line_item_wrapper->commerce_unit_price->amount = $discount_amount['amount'];
 
-    // Add the discount amount as a price component.
+  // Add the discount amount as a price component.
   $price = $line_item_wrapper->commerce_unit_price->value();
   $type = empty($component_title) ? 'discount' : check_plain('discount|' . $discount_name);
   $line_item_wrapper->commerce_unit_price->data = commerce_price_component_add($price, $type, $discount_amount, TRUE, TRUE);
@@ -1022,8 +1022,10 @@ function commerce_discount_set_price_component(EntityDrupalWrapper $line_item_wr
 }
 
 /**
- * Update commerce_total so that the order total can be refreshed without
- * saving the line item. Taken from CommerceLineItemEntityController::save().
+ * Update commerce_total without saving line item.
+ *
+ * To have the order total refreshed without saving the line item.
+ * Taken from CommerceLineItemEntityController::save().
  */
 function _commerce_discount_update_commerce_total($line_item_wrapper) {
   $quantity = $line_item_wrapper->quantity->value();

@@ -91,7 +91,7 @@ class CommerceDiscountUIController extends EntityDefaultUIController {
             'event' => 0,
             'tag' => 'Commerce Discount',
           ),
-        )
+        ),
       ),
       'access arguments' => array('administer commerce discounts'),
       'type' => MENU_LOCAL_TASK,
@@ -100,6 +100,7 @@ class CommerceDiscountUIController extends EntityDefaultUIController {
 
     return $items;
   }
+
 }
 
 /**
@@ -159,7 +160,7 @@ function commerce_discount_form($form, &$form_state, CommerceDiscount $commerce_
   // Machine-readable type name.
   $form['name'] = array(
     '#type' => 'machine_name',
-    // Strip the 'discount_' prefix from the beginning of the string
+    // Strip the 'discount_' prefix from the beginning of the string.
     '#default_value' => isset($commerce_discount->name) ? substr($commerce_discount->name, 9) : '',
     '#disabled' => $commerce_discount->hasStatus(ENTITY_IN_CODE),
     '#machine_name' => array(
@@ -193,8 +194,8 @@ function commerce_discount_form($form, &$form_state, CommerceDiscount $commerce_
     '#required' => FALSE,
     '#default_value' => $commerce_discount->type,
     '#ajax' => array(
-       'callback' => 'commerce_discount_fields_ajax_callback',
-       'wrapper' => 'commerce-discount-fields-wrapper',
+      'callback' => 'commerce_discount_fields_ajax_callback',
+      'wrapper' => 'commerce-discount-fields-wrapper',
     ),
   );
 
@@ -213,9 +214,10 @@ function commerce_discount_form($form, &$form_state, CommerceDiscount $commerce_
   // Add a class to custom fields for easier styling.
   // Ignore the offer reference field and any date fields. Date fields are
   // ignored because their markup makes them hard to style generically.
+  $date_field_types = array('date', 'datestamp', 'datetime');
   foreach (element_get_visible_children($form['commerce_discount_fields']) as $field_name) {
     $field = field_info_field($field_name);
-    if ($field_name == 'commerce_discount_offer' || in_array($field['type'], array('date', 'datestamp', 'datetime'))) {
+    if ($field_name == 'commerce_discount_offer' || in_array($field['type'], $date_field_types)) {
       continue;
     }
 
@@ -232,7 +234,7 @@ function commerce_discount_form($form, &$form_state, CommerceDiscount $commerce_
     '#value' => t('Save discount'),
     '#weight' => 40,
     '#ief_submit_all' => TRUE,
-    '#submit' => null,
+    '#submit' => NULL,
   );
 
   if (!$commerce_discount->hasStatus(ENTITY_IN_CODE) && $op != 'add') {
@@ -296,10 +298,10 @@ function commerce_discount_form_submit_delete(&$form, &$form_state) {
 /**
  * Checks if a Discount machine name is taken.
  *
- * @param $value
+ * @param string $value
  *   The machine name, not prefixed with 'discount_'.
  *
- * @return
+ * @return entity|bool
  *   Whether or not the field machine name is taken.
  */
 function _commerce_discount_name_exists($value) {
