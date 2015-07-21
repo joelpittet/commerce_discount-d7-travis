@@ -1,4 +1,4 @@
-@import "_mixins.scss";
+@import "mixins";
 
 /**
  * Discount form.
@@ -14,7 +14,7 @@
     right: 0; // LTR
     width: 180px;
   }
-  // Reset
+  // Reset.
   .form-item-label {
     clear: both;
     .form-item {
@@ -31,7 +31,7 @@
       }
     }
   }
-  // general block margins
+  // General block margins.
   #commerce-discount-fields-wrapper {
     & > .form-wrapper {
       margin-bottom: 15px;
@@ -59,7 +59,9 @@
         display: none;
       }
       #edit-commerce-discount-type {
+        padding: 0;
         @include radio-buttons;
+        margin-top: 10px;
         clear: none;
 
         .form-item {
@@ -89,53 +91,50 @@
   margin: 0;
   padding: 0;
 
+  .form-item-commerce-discount-fields-commerce-discount-offer-und-form-type {
+    label {
+      border-bottom: 1px solid $gray2;
+      padding-left: 5px; // LTR
+    }
+    .form-radios {
+      @include radio-buttons;
+
+      background-color: transparent;
+      border-right: 1px dotted $gray2; // LTR
+      float: left; // LTR
+      margin: 10px 20px 10px 10px; // LTR
+      padding: 4px 20px 4px 0px; // LTR
+
+      .form-item {
+        &.selected {
+          background-color: #eee;
+        }
+        .ajax-progress {
+          display: none;
+        }
+      }
+
+      label {
+        border-bottom: 0;
+        padding-left: 0;
+      }
+    }
+  }
   .form-wrapper .form-wrapper {
     .form-item {
       margin-bottom: 2px;
-      padding: 0;
-
-      label {
-        border-bottom: 1px solid $gray2;
-        padding-left: 5px; // LTR
-      }
-      div.form-radios {
-        @include radio-buttons;
-
-        background-color: transparent;
-        border-right: 1px dotted $gray2; /* LTR */
-        float: left; /* LTR */
-        margin: 10px;
-        padding: 4px;
-        padding-right: 20px; /* LTR */
-
-        .form-item {
-          &.selected {
-            background-color: #eee;
-          }
-          .ajax-progress {
-            display: none;
-          }
-        }
-
-        label {
-          border-bottom: 0;
-          padding-left: 0;
-        }
-      }
     }
+
     .form-wrapper {
       label {
         border-bottom: 0;
         padding-left: 0;
       }
-
-      &.form-item {
-        background-color: transparent;
-        float: left; /* LTR */
-        margin: 10px;
-        padding: 4px;
-      }
     }
+  }
+
+  .commerce-offer-fields-wrapper {
+    float: left; // LTR
   }
 }
 
@@ -188,7 +187,7 @@
       }
 
       input[disabled] {
-        background: #eeeeee;
+        background: #eee;
       }
     }
   }

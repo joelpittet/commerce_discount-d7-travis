@@ -1,4 +1,4 @@
-@import "_mixins.scss";
+@import "mixins";
 
 @mixin btn {
   margin-left: 20px;
@@ -36,7 +36,7 @@
     }
     label {
       float: right;
-      padding-right: 0px;
+      padding-right: 0;
       padding-left: 10px; // RTL
     }
     &.end-date-wrapper {
@@ -96,6 +96,7 @@ html.js input.form-autocomplete {
     }
   }
 }
+
 /**
  * Choose discount type block.
  */
@@ -105,15 +106,16 @@ html.js input.form-autocomplete {
       float: right;
 
       #edit-commerce-discount-type {
-        @include radio-buttons;
-
         .form-item {
+          margin-left: 20px;
+          margin-right: 0;
           float: right;
         }
       }
     }
   }
 }
+
 /**
  * Choose offer type block.
  */
@@ -132,8 +134,7 @@ html.js input.form-autocomplete {
         border-right: 0; // RTL
         border-left: 1px dotted $gray2;
         float: right;
-        padding-right: 0; // RTL
-        padding-left: 20px;
+        padding: 4px 0 4px 20px; // RTL
 
         label {
           padding-right: 5px;
@@ -145,9 +146,6 @@ html.js input.form-autocomplete {
       label {
         padding-right: 5px;
         padding-left: 0; // RTL
-      }
-      &.form-item {
-        float: right;
       }
     }
   }
@@ -193,7 +191,7 @@ html.js input.form-autocomplete {
     float: right;
 
     label {
-      margin-left: 0px;
+      margin-left: 0;
       margin-right: 10px; // RTL
     }
   }

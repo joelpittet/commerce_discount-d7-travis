@@ -32,7 +32,7 @@ html.js input.form-autocomplete {
   clear: both;
 }
 .commerce-discount-form .form-item-label .form-item {
-  padding: 0px;
+  padding: 0;
 }
 .commerce-discount-form .form-item.form-type-radio {
   position: relative;
@@ -64,8 +64,6 @@ html.js input.form-autocomplete {
 .form-item-commerce-discount-type .form-radios .form-item #edit-commerce-discount-type .form-item {
   margin-left: 20px;
   margin-right: 0;
-}
-.form-item-commerce-discount-type .form-radios .form-item #edit-commerce-discount-type .form-item {
   float: right;
 }
 
@@ -81,9 +79,9 @@ html.js input.form-autocomplete {
 }
 .field-name-commerce-discount-offer .form-wrapper .form-wrapper .form-item div.form-radios {
   border-right: 0;
-  border-left: 1px dotted #cccccc;
+  border-left: 1px dotted #ccc;
   float: right;
-  padding: 4px 0px 4px 20px;
+  padding: 4px 0 4px 20px;
 }
 .field-name-commerce-discount-offer .form-wrapper .form-wrapper .form-item div.form-radios .form-item {
   margin-left: 20px;
@@ -112,7 +110,7 @@ html.js input.form-autocomplete {
 }
 .field-name-commerce-discount-date .fieldset-wrapper .container-inline-date label {
   float: right;
-  padding-right: 0px;
+  padding-right: 0;
   padding-left: 10px;
 }
 .field-name-commerce-discount-date .fieldset-wrapper .container-inline-date.end-date-wrapper {
@@ -127,13 +125,13 @@ html.js input.form-autocomplete {
   margin: 0;
 }
 .commerce-discount-usage .form-item.form-type-select label {
-  border-bottom: 1px solid #cccccc;
+  border-bottom: 1px solid #ccc;
 }
 .commerce-discount-usage .form-item .form-select {
   float: right;
 }
 .commerce-discount-usage .field-name-commerce-discount-max-uses {
-  padding: 0px;
+  padding: 0;
 }
 .commerce-discount-usage .field-name-commerce-discount-max-uses > div {
   float: left;
@@ -146,6 +144,8 @@ html.js input.form-autocomplete {
   float: right;
 }
 .commerce-discount-usage .field-type-number-integer label {
-  margin-left: 0px;
+  margin-left: 0;
   margin-right: 10px;
 }
+
+/*# sourceMappingURL=commerce_discount-rtl.css.map */
