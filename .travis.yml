@@ -11,7 +11,7 @@ cache:
     - $HOME/.composer/cache
 
 php:
-  - 5.3
+  # - 5.3
   - 5.4
   - 5.5
 
@@ -65,4 +65,4 @@ before_script:
 
 script:
   # Run the tests
-  - drush test-run --uri=http://127.0.0.1:8888 "Drupal Commerce"
+  - drush test-run --uri=http://127.0.0.1:8888 "Commerce discounts"
