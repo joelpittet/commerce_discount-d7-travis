@@ -129,6 +129,9 @@ function commerce_discount_overview_form() {
  *   Comment me.
  * @param string $op
  *   Current operation.
+ *
+ * @return array
+ *   A renderable form build array.
  */
 function commerce_discount_form($form, &$form_state, CommerceDiscount $commerce_discount, $op = 'edit') {
   // We might have gotten the commerce discount type via ajax, so set it
@@ -255,6 +258,7 @@ function commerce_discount_form($form, &$form_state, CommerceDiscount $commerce_
     $form['#attached']['css'][] = drupal_get_path('module', 'commerce_discount') . '/css/commerce_discount-rtl.css';
   }
   $form['#attributes']['class'][] = 'commerce-discount-form';
+
   return $form;
 }
 

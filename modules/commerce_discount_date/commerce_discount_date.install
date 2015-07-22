@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * @file
+ * Install, update, and uninstall functions for commerce discount date module.
+ */
+
+/**
  * Implements hook_install().
  *
  * Create a date field for commerce discounts.
