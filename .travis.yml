@@ -65,4 +65,4 @@ before_script:
 
 script:
   # Run the tests
-  - drush test-run --uri=http://127.0.0.1:8888 "Commerce discounts"
+  - drush test-run --verbose --uri=http://127.0.0.1:8888 "Commerce discounts"
