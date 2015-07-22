@@ -8,6 +8,15 @@ function commerce_discount_usage_install() {
 }
 
 /**
+ * Implements hook_uninstall().
+ */
+function commerce_discount_usage_uninstall() {
+  module_load_include('module', 'commerce');
+  commerce_delete_field('discount_usage_per_person');
+  commerce_delete_field('discount_usage_limit');
+}
+
+/**
  * Install fields for this module
  */
 function _commerce_discount_usage_install_helper() {

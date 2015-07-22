@@ -394,6 +394,7 @@ function commerce_discount_install_helper() {
  * @see commerce_discount_offer_type_info()
  */
 function commerce_discount_uninstall() {
+  module_load_include('module', 'commerce');
   // Drop all bundles attached on commerce_discount and commerce_discount_offer
   // entity types.
   field_attach_delete_bundle('commerce_discount', 'order_discount');
@@ -404,6 +405,10 @@ function commerce_discount_uninstall() {
   field_attach_delete_bundle('commerce_discount_offer', 'commerce_percent_off_shipping');
   field_attach_delete_bundle('commerce_discount_offer', 'commerce_percent_off_ship_serv');
   field_attach_delete_bundle('commerce_discount_offer', 'free_products');
+
+  // Delete custom line items types.
+  field_attach_delete_bundle('commerce_line_item', 'commerce_discount');
+  field_attach_delete_bundle('commerce_line_item', 'product_discount');
 
   // Then delete the related fields
   commerce_delete_field('commerce_discount_offer');

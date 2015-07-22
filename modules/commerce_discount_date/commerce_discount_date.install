@@ -39,5 +39,6 @@ function commerce_discount_date_install() {
  * Implements hook_uninstall().
  */
 function commerce_discount_date_uninstall() {
-  field_delete_field('commerce_discount_date');
+  module_load_include('module', 'commerce');
+  commerce_delete_field('commerce_discount_date');
 }
