@@ -13,7 +13,7 @@ function commerce_discount_usage_commerce_discount_rule_build($rule, $discount) 
   );
 
   if (isset($map[$discount->type])) {
-    // Add condition for per-person usage
+    // Add condition for per-person usage.
     if ($wrapper->discount_usage_per_person->value()) {
       $rule->condition(
         'commerce_discount_usage_max_usage_per_person',
@@ -24,7 +24,7 @@ function commerce_discount_usage_commerce_discount_rule_build($rule, $discount) 
         )
       );
     }
-    // For normal usage
+    // For normal usage.
     if ($wrapper->discount_usage_limit->value()) {
       $rule->condition(
         'commerce_discount_usage_max_usage',
@@ -216,6 +216,6 @@ function commerce_discount_usage_form_commerce_discount_form_alter(&$form, $form
 function commerce_discount_usage_views_api() {
   return array(
     'version' => 2,
-    'path' => drupal_get_path('module', 'commerce_discount_usage') . '/includes/views'
+    'path' => drupal_get_path('module', 'commerce_discount_usage') . '/includes/views',
   );
 }

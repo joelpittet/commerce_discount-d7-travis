@@ -6,7 +6,7 @@
  */
 
 /**
- * Implements hook_schema()
+ * Implements hook_schema().
  */
 function commerce_discount_schema() {
   $schema['commerce_discount'] = array(
@@ -218,7 +218,7 @@ function commerce_discount_install_helper() {
     );
     field_create_field($field);
   }
-  // Creating field for percent off of shipping
+  // Creating field for percent off of shipping.
   if (module_exists('commerce_shipping') && empty($fields['commerce_percent_off_shipping'])) {
     $field = array(
       'entity_types' => array('commerce_discount_offer'),
@@ -228,7 +228,7 @@ function commerce_discount_install_helper() {
     );
     field_create_field($field);
   }
-  // Creating field for percent off of shipping
+  // Creating field for percent off of shipping.
   if (module_exists('commerce_shipping') && empty($fields['commerce_percent_off_ship_serv'])) {
     $field = array(
       'entity_types' => array('commerce_discount_offer'),
@@ -342,7 +342,7 @@ function commerce_discount_install_helper() {
   }
 
   if (module_exists('commerce_shipping') && empty($instances['commerce_discount_offer']['percent_off_shipping']['commerce_percent_off_shipping'])) {
-    // Add decimal selection
+    // Add decimal selection.
     $instance = array(
       'field_name' => 'commerce_percent_off_shipping',
       'entity_type' => 'commerce_discount_offer',
@@ -355,7 +355,7 @@ function commerce_discount_install_helper() {
     );
     field_create_instance($instance);
 
-    // Add service selection
+    // Add service selection.
     $instance = array(
       'field_name' => 'commerce_percent_off_ship_serv',
       'entity_type' => 'commerce_discount_offer',
@@ -410,7 +410,7 @@ function commerce_discount_uninstall() {
   field_attach_delete_bundle('commerce_line_item', 'commerce_discount');
   field_attach_delete_bundle('commerce_line_item', 'product_discount');
 
-  // Then delete the related fields
+  // Then delete the related fields.
   commerce_delete_field('commerce_discount_offer');
   commerce_delete_field('commerce_fixed_amount');
   commerce_delete_field('commerce_percentage');
@@ -437,12 +437,12 @@ function commerce_discount_uninstall() {
 }
 
 /**
- * #1875524 Update the widget type of field commerce_discount_offer
+ * #1875524 Update the widget type of field commerce_discount_offer.
  */
 function commerce_discount_update_7101() {
   $instances = field_info_instances('commerce_discount');
-  foreach($instances as $bundle => $bundle_instances ) {
-    foreach($bundle_instances as $field_name => $instance) {
+  foreach ($instances as $bundle => $bundle_instances) {
+    foreach ($bundle_instances as $field_name => $instance) {
       if ($field_name == 'commerce_discount_offer') {
         $instance['widget']['type'] = 'inline_entity_form_single';
         field_update_instance($instance);

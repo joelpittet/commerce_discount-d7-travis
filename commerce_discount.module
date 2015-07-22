@@ -4,7 +4,7 @@
  * @file
  * Defines the discount and discount offer entities, bundles and functionality.
  *
- * Discount and offer entites are always managed together,
+ * Discount and offer entities are always managed together,
  * their bundles, and all surrounding functionality (API, UI).
  */
 
@@ -247,12 +247,10 @@ function commerce_discount_permission() {
  * Implements hook_views_api().
  */
 function commerce_discount_views_api($module, $api) {
-  if ($module == 'views') {
-    return array(
-      'version' => 3,
-      'path' => drupal_get_path('module', 'commerce_discount') . '/includes/views',
-    );
-  }
+  return array(
+    'version' => 3,
+    'path' => drupal_get_path('module', 'commerce_discount') . '/includes/views',
+  );
 }
 
 /**

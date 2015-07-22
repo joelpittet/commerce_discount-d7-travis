@@ -137,6 +137,7 @@ class CommerceDiscountTestBase extends CommerceBaseTestCase {
 
     return $wrapper->value();
   }
+
 }
 
 /**
@@ -550,7 +551,7 @@ class CommerceDiscountTest extends CommerceDiscountTestBase {
     // View a product node.
     $this->drupalGet("node/$nid");
     $product_price = $this->xpath('//div[contains(@class, "field-name-commerce-price")]/div[contains(@class, "field-item")]');
-    $this->assertTrue(trim((string)$product_price[0]->div) == $formatted_discounted_price, t('Discounted product price is shown on product page.'));
+    $this->assertTrue(trim((string) $product_price[0]->div) == $formatted_discounted_price, t('Discounted product price is shown on product page.'));
 
     // Add a product to the cart.
     $this->drupalPost('node/' . $this->product_node->nid, array(), t('Add to cart'));
@@ -558,7 +559,7 @@ class CommerceDiscountTest extends CommerceDiscountTestBase {
     // View the cart.
     $this->drupalGet('cart');
     $product_price = $this->xpath('//td[contains(@class, "views-field-commerce-unit-price")]');
-    $this->assertTrue(trim((string)$product_price[0]->{0}) == $formatted_discounted_price, t('Discounted product price is shown on the cart.'));
+    $this->assertTrue(trim((string) $product_price[0]->{0}) == $formatted_discounted_price, t('Discounted product price is shown on the cart.'));
   }
 
   /**
