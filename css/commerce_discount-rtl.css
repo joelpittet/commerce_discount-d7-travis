@@ -9,10 +9,6 @@
   right: -10px;
 }
 
-html.js input.form-autocomplete {
-  background-position: 0% 2px;
-}
-
 /**
  * Discount form.
  */
@@ -43,11 +39,8 @@ html.js input.form-autocomplete {
 }
 .commerce-discount-form #commerce-discount-fields-wrapper .form-wrapper > #inline-conditions-inline_conditions .form-wrapper .ajax-progress {
   display: block;
-  /* RTL */
   margin-top: 10px;
-  /* RTL */
   width: 180px;
-  /* RTL */
 }
 .commerce-discount-form #commerce-discount-fields-wrapper .form-wrapper > #inline-conditions-inline_conditions .form-wrapper .condition-wrapper .form-item .ajax-progress {
   display: inline-block;
