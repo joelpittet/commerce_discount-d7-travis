@@ -66,6 +66,7 @@ before_script:
   - drush dl addressfield rules ctools entity views
   - drush en -y commerce_cart commerce_customer_ui commerce_product_ui commerce_line_item_ui commerce_order_ui
   - drush en -y commerce_payment commerce_payment_example commerce_tax_ui simpletest
+  - drush en -y commerce_checkout
   - drush en -y commerce_discount commerce_discount_date commerce_discount_usage
 
 script:
