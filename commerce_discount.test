@@ -225,8 +225,7 @@ class CommerceDiscountTest extends CommerceDiscountTestBase {
     $this->drupalPost(NULL, $values, t('Save discount'));
 
     // Load the discount and wrap it.
-    $entities = entity_load('commerce_discount', array(1));
-    $discount = reset($entities);
+    $discount = entity_load_single('commerce_discount', 1);
     $wrapper = entity_metadata_wrapper('commerce_discount', $discount);
 
     // Check the stored discount.
@@ -391,8 +390,7 @@ class CommerceDiscountTest extends CommerceDiscountTestBase {
     entity_save('commerce_discount', $import);
 
     // Export the discount to make sure it's identical to the import string.
-    $entities = entity_load('commerce_discount', array($import->discount_id));
-    $discount = reset($entities);
+    $discount = entity_load_single('commerce_discount', $import->discount_id);
     $export = entity_export('commerce_discount', $discount);
     $this->assertTrue($exported_discount == $export, t('Exported discount is identical to its origin.'));
   }
@@ -574,12 +572,10 @@ class CommerceDiscountTest extends CommerceDiscountTestBase {
 
     // Create an order.
     $order = $this->createDummyOrder($this->store_customer->uid, array($this->product->product_id => 1), 'complete');
-    entity_get_controller('commerce_order')->resetCache(array($order->order_id));
-
-    $wrapper = entity_metadata_wrapper('commerce_order', $order);
 
     // Recalculate discounts.
     commerce_cart_order_refresh($order);
+    $wrapper = entity_metadata_wrapper('commerce_order', $order);
 
     $this->assertTrue($wrapper->commerce_discounts->count() == 2, t('2 discounts are listed as applied on the order.'));
     $this->assertTrue($wrapper->commerce_order_total->amount->value() == 500, t('Two fixed order discounts are applied on the total price.'));
