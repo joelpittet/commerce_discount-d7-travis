@@ -47,7 +47,7 @@ class CommerceDiscountUsageTest extends CommerceDiscountTestBase {
     $this->drupalGet('admin/commerce/store/discounts/add');
 
     // Check the integrity of the add form.
-    // $this->assertFieldByName('commerce_discount_fields[discount_usage_limit][limit_uses]', NULL, t('Quantity field is present'));
+    $this->assertFieldByName('commerce_discount_fields[discount_usage_limit][limit_uses]', NULL, t('Quantity field is present'));
     $this->assertFieldByName('commerce_discount_fields[discount_usage_limit][und][0][value]', NULL, t('Amount field is present'));
 
     // Create a discount.
@@ -88,7 +88,7 @@ class CommerceDiscountUsageTest extends CommerceDiscountTestBase {
     $this->drupalGet('admin/commerce/store/discounts/manage/' . $discount->name);
 
     // Check the integrity of the add form.
-    // $this->assertFieldByName('commerce_discount_fields[discount_usage_limit][limit_uses]', NULL, t('Quantity field is present'));
+    $this->assertFieldByName('commerce_discount_fields[discount_usage_limit][limit_uses]', NULL, t('Quantity field is present'));
     $this->assertFieldByName('commerce_discount_fields[discount_usage_limit][und][0][value]', NULL, t('Amount field is present'));
 
     // Change the discount values.
@@ -201,7 +201,7 @@ class CommerceDiscountUsageTest extends CommerceDiscountTestBase {
     // Check if the discount was added as a component to the line item.
     $line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $line_item);
     $price_data = $line_item_wrapper->commerce_unit_price->data->value();
-    // $this->assertTrue(count($price_data['components']) === 1, t('Fixed product discount is ignored after maximal usage.'));
+    $this->assertTrue(count($price_data['components']) === 1, t('Fixed product discount is ignored after maximal usage.'));
   }
 
   /**
@@ -223,7 +223,7 @@ class CommerceDiscountUsageTest extends CommerceDiscountTestBase {
     // Check if the discount was added as a component to the line item.
     $line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $line_item);
     $price_data = $line_item_wrapper->commerce_unit_price->data->value();
-    // $this->assertTrue($price_data['components'][1]['price']['amount'] == -500, t('Percentage product discount is added as a price compoennt to the line item.'));
+    $this->assertTrue($price_data['components'][1]['price']['amount'] == -500, t('Percentage product discount is added as a price compoennt to the line item.'));
 
     // Create another order to make sure the discount isn't applied again.
     $order = $this->createDummyOrder($this->store_customer2->uid, array($this->product->product_id => 1), 'complete');
@@ -239,7 +239,7 @@ class CommerceDiscountUsageTest extends CommerceDiscountTestBase {
     $line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $line_item);
     $price_data = $line_item_wrapper->commerce_unit_price->data->value();
     // Failing on Travis.
-    // $this->assertTrue(count($price_data['components']) == 1, t('Percentage product discount is ignored after maximal usage.'));
+    $this->assertTrue(count($price_data['components']) == 1, t('Percentage product discount is ignored after maximal usage.'));
   }
 
   /**
