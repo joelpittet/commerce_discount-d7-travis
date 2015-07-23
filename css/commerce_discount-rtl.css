@@ -99,7 +99,7 @@
   float: left;
 }
 .field-name-commerce-discount-date .fieldset-wrapper .container-inline-date .date-padding > .form-item:first-child input.form-text {
-  background: white url("../images/calendar.png") no-repeat 2px 0px;
+  background: white url("../images/calendar.png") no-repeat 2px 0;
 }
 .field-name-commerce-discount-date .fieldset-wrapper .container-inline-date label {
   float: right;

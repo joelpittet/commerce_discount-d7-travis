@@ -116,7 +116,7 @@
   border-right: 1px dotted #ccc;
   float: left;
   margin: 10px 20px 10px 10px;
-  padding: 4px 20px 4px 0px;
+  padding: 4px 20px 4px 0;
 }
 .field-name-commerce-discount-offer .form-item-commerce-discount-fields-commerce-discount-offer-und-form-type .form-radios .form-item {
   color: black;
@@ -209,7 +209,7 @@
   width: 55px;
 }
 .field-name-commerce-discount-date .fieldset-wrapper .container-inline-date .date-padding > .form-item:first-child input.form-text {
-  background: white url("../images/calendar.png") no-repeat 86px 0px;
+  background: white url("../images/calendar.png") no-repeat 86px 0;
   width: 100px;
 }
 .field-name-commerce-discount-date .fieldset-wrapper .container-inline-date > .form-item {
