@@ -22,10 +22,10 @@ class CommerceDiscountDateTest extends CommerceDiscountTestBase {
   protected $date_format = 'm/d/Y';
 
   /**
-   * The number of seconds in a day.
+   * The number of seconds in a day (60 * 60 * 24).
    * @var int
    */
-  protected $day_in_seconds = 60 * 60 * 24;
+  protected $day_in_seconds = 86400;
 
   /**
    * {@inheritdoc}
