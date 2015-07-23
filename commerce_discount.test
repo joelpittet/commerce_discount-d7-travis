@@ -316,7 +316,7 @@ class CommerceDiscountTest extends CommerceDiscountTestBase {
    * Test the delete discount UI.
    */
   public function testCommerceDiscountUIDeleteDiscount() {
-     Create a discount.
+    // Create a discount.
     $discount = $this->createDiscount('order_discount', 'fixed_amount', 300);
 
     // Login with normal user.
