@@ -65,7 +65,7 @@ class CommerceDiscountDateTest extends CommerceDiscountTestBase {
     $this->drupalPost(NULL, $values, t('Save discount'));
 
     // Load the discount and wrap it.
-    $discount = entity_load_single('commerce_discount', 1);
+    $discount = entity_load_single('commerce_discount', $values['name']);
     $wrapper = entity_metadata_wrapper('commerce_discount', $discount);
 
     // Check the usage fields of the stored discount.
@@ -118,7 +118,7 @@ class CommerceDiscountDateTest extends CommerceDiscountTestBase {
     // $this->drupalPost(NULL, $values, t('Save discount'));
 
     // Load the discount and wrap it.
-    $discount = entity_load_single('commerce_discount', 1);
+    $discount = entity_load_single('commerce_discount', $values['name']);
     $wrapper = entity_metadata_wrapper('commerce_discount', $discount);
 
     // // Check the usage fields of the stored discount.
