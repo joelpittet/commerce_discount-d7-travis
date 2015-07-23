@@ -225,7 +225,8 @@ class CommerceDiscountTest extends CommerceDiscountTestBase {
     $this->drupalPost(NULL, $values, t('Save discount'));
 
     // Load the discount and wrap it.
-    $discount = reset(entity_load('commerce_discount', array(1)));
+    $entities = entity_load('commerce_discount', array(1));
+    $discount = reset($entities);
     $wrapper = entity_metadata_wrapper('commerce_discount', $discount);
 
     // Check the stored discount.
@@ -390,7 +391,8 @@ class CommerceDiscountTest extends CommerceDiscountTestBase {
     entity_save('commerce_discount', $import);
 
     // Export the discount to make sure it's identical to the import string.
-    $discount = reset(entity_load('commerce_discount', array($import->discount_id)));
+    $entities = entity_load('commerce_discount', array($import->discount_id));
+    $discount = reset($entities);
     $export = entity_export('commerce_discount', $discount);
     $this->assertTrue($exported_discount == $export, t('Exported discount is identical to its origin.'));
   }
