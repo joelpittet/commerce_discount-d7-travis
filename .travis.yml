@@ -53,10 +53,11 @@ before_script:
 
   # Update drupal core
   - drush si --db-url=mysql://root:@127.0.0.1/drupal --account-name=admin --account-pass=admin --site-mail=admin@example.com --site-name="Commerce" --yes
-  #- drush dl addressfield rules ctools entity views
-  #- drush en -y commerce_cart commerce_customer_ui commerce_product_ui commerce_line_item_ui commerce_order_ui
-  #- drush en -y commerce_payment commerce_payment_example commerce_tax_ui simpletest
-  #- drush en -y commerce_checkout
+  - drush dl addressfield rules ctools entity views
+  #- drush dl commerce commerce_customer_ui commerce_product_ui commerce_line_item_ui commerce_order_ui
+  #- drush dl commerce_payment commerce_payment_example commerce_tax_ui
+  #- drush dl commerce_checkout
+  - drush en -y simpletest
   - drush en -y commerce_discount commerce_discount_date commerce_discount_usage
 
   # Start server
