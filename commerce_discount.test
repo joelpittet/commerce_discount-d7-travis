@@ -258,7 +258,6 @@ class CommerceDiscountTest extends CommerceDiscountTestBase {
 
     // Access to the admin discount edit page.
     $this->drupalGet('admin/commerce/store/discounts/manage/' . $discount->name);
-
     $this->assertResponse(403, 'Normal user is not able to edit a discount using the admin interface');
 
     // Login with store admin.
@@ -266,7 +265,6 @@ class CommerceDiscountTest extends CommerceDiscountTestBase {
 
     // Access to the admin discount edit page.
     $this->drupalGet('admin/commerce/store/discounts/manage/' . $discount->name);
-
     $this->assertResponse(200, 'Store admin user is allowed to edit a discount using the admin interface');
 
     // Check the integrity of the add form.
@@ -279,8 +277,15 @@ class CommerceDiscountTest extends CommerceDiscountTestBase {
     $this->assertFieldById('edit-submit', t('Save discount'), 'Save discount button is present');
     $this->assertFieldById('edit-delete', t('Delete discount'), 'Delete discount button is present');
 
+    $values = array(
+      'label' => '',
+      'name' => '',
+      'component_title' => '',
+      'commerce_discount_fields[commerce_discount_offer][und][form][commerce_fixed_amount][und][0][amount]' => '',
+    );
+
     // Try to save the product and check validation messages.
-    $this->drupalPost(NULL, array(), t('Save discount'));
+    $this->drupalPost(NULL, $values, t('Save discount'));
 
     $this->assertText(t('Admin title field is required.'), 'Validation message for missing label.');
     $this->assertText(t('Machine-readable name field is required.'), 'Validation message for missing machine-name.');
