@@ -303,7 +303,8 @@ class CommerceDiscountTest extends CommerceDiscountTestBase {
 
     // Load the discount and wrap it.
     $discounts = entity_load('commerce_discount', array($discount->discount_id), $conditions = array(), $reset = TRUE);
-    $discount_wrapper = entity_metadata_wrapper('commerce_discount', reset($discounts));
+    $discount = reset($discounts);
+    $discount_wrapper = entity_metadata_wrapper('commerce_discount', $discount);
 
     // Check the stored discount.
     $this->assertEqual($discount->label, $values['label'], 'Label stored correctly.');
