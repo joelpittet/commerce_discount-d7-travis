@@ -100,24 +100,24 @@ class CommerceDiscountTestBase extends CommerceBaseTestCase {
   protected function createDiscount($discount_type, $offer_type, $amount, $name = '', $component_title = '') {
     // Create the discount offer.
     $commerce_discount_offer = entity_create('commerce_discount_offer', array('type' => $offer_type));
-    $wrapper = entity_metadata_wrapper('commerce_discount_offer', $commerce_discount_offer);
+    $offer_wrapper = entity_metadata_wrapper('commerce_discount_offer', $commerce_discount_offer);
     switch ($offer_type) {
       case 'fixed_amount':
-        $wrapper->commerce_fixed_amount->amount = $amount;
-        $wrapper->commerce_fixed_amount->currency_code = 'USD';
+        $offer_wrapper->commerce_fixed_amount->amount = $amount;
+        $offer_wrapper->commerce_fixed_amount->currency_code = 'USD';
         break;
 
       case 'percentage':
-        $wrapper->commerce_percentage = $amount;
+        $offer_wrapper->commerce_percentage = $amount;
         break;
 
       case 'free_products':
         // Product ids array should be provided for $amount.
-        $wrapper->commerce_free_products = $amount;
+        $offer_wrapper->commerce_free_products = $amount;
         break;
     }
 
-    $wrapper->save();
+    $offer_wrapper->save();
 
     // Provide default name.
     $name = $name ? $name : $discount_type . '_' . $offer_type;
@@ -133,11 +133,11 @@ class CommerceDiscountTestBase extends CommerceBaseTestCase {
       'export_status' => TRUE,
     );
     $commerce_discount = entity_create('commerce_discount', $values);
-    $wrapper = entity_metadata_wrapper('commerce_discount', $commerce_discount);
-    $wrapper->commerce_discount_offer = $commerce_discount_offer;
-    $wrapper->save();
+    $discount_wrapper = entity_metadata_wrapper('commerce_discount', $commerce_discount);
+    $discount_wrapper->commerce_discount_offer = $commerce_discount_offer;
+    $discount_wrapper->save();
 
-    return $wrapper->value();
+    return $discount_wrapper->value();
   }
 
 }
@@ -228,7 +228,7 @@ class CommerceDiscountTest extends CommerceDiscountTestBase {
 
     // Load the discount and wrap it.
     $discount = entity_load_single('commerce_discount', 1);
-    $wrapper = entity_metadata_wrapper('commerce_discount', $discount);
+    $discount_wrapper = entity_metadata_wrapper('commerce_discount', $discount);
 
     // Check the stored discount.
     $this->assertEqual($discount->label, $values['label'], 'Label stored correctly.');
@@ -237,8 +237,8 @@ class CommerceDiscountTest extends CommerceDiscountTestBase {
     $this->assertEqual($discount->component_title, $values['component_title'], 'Namfor customer stored correctly.');
     $this->assertEqual($discount->status, 1, 'Enabled stored correctly.');
 
-    $this->assertEqual($wrapper->commerce_discount_offer->getBundle(), 'fixed_amount', 'Offer type stored correctly.');
-    $this->assertEqual($wrapper->commerce_discount_offer->commerce_fixed_amount->amount->value(), 1277, 'Amount stored correctly.');
+    $this->assertEqual($discount_wrapper->commerce_discount_offer->getBundle(), 'fixed_amount', 'Offer type stored correctly.');
+    $this->assertEqual($discount_wrapper->commerce_discount_offer->commerce_fixed_amount->amount->value(), 1277, 'Amount stored correctly.');
 
     // Check the discounts listing.
     $this->assertUrl('admin/commerce/store/discounts', array('query' => drupal_get_query_parameters()), 'Landing page after save is the discounts list.');
@@ -277,6 +277,7 @@ class CommerceDiscountTest extends CommerceDiscountTestBase {
     $this->assertFieldById('edit-submit', t('Save discount'), 'Save discount button is present');
     $this->assertFieldById('edit-delete', t('Delete discount'), 'Delete discount button is present');
 
+    // Empty values for validation assertions.
     $values = array(
       'label' => '',
       'name' => '',
@@ -301,8 +302,8 @@ class CommerceDiscountTest extends CommerceDiscountTestBase {
     $this->drupalPost(NULL, $values, t('Save discount'));
 
     // Load the discount and wrap it.
-    $discount = entity_load_single('commerce_discount', 1);
-    $wrapper = entity_metadata_wrapper('commerce_discount', $discount);
+    $discounts = entity_load('commerce_discount', array($discount->discount_id), $conditions = array(), $reset = TRUE);
+    $discount_wrapper = entity_metadata_wrapper('commerce_discount', reset($discounts));
 
     // Check the stored discount.
     $this->assertEqual($discount->label, $values['label'], 'Label stored correctly.');
@@ -310,8 +311,8 @@ class CommerceDiscountTest extends CommerceDiscountTestBase {
     $this->assertEqual($discount->component_title, $values['component_title'], 'Name for customer stored correctly.');
     $this->assertEqual($discount->status, 1, 'Enabled stored correctly.');
 
-    $this->assertEqual($wrapper->commerce_discount_offer->getBundle(), 'fixed_amount', 'Offer type stored correctly.');
-    $this->assertEqual($wrapper->commerce_discount_offer->commerce_fixed_amount->amount->value(), 1277, 'Amount stored correctly.');
+    $this->assertEqual($discount_wrapper->commerce_discount_offer->getBundle(), 'fixed_amount', 'Offer type stored correctly.');
+    $this->assertEqual($discount_wrapper->commerce_discount_offer->commerce_fixed_amount->amount->value(), 1277, 'Amount stored correctly.');
 
     // Check the discounts listing.
     $this->assertUrl('admin/commerce/store/discounts', array('query' => drupal_get_query_parameters()), 'Landing page after save is the discounts list.');
@@ -412,13 +413,13 @@ class CommerceDiscountTest extends CommerceDiscountTestBase {
     // Create an order.
     $order = $this->createDummyOrder($this->store_customer->uid, array($this->product->product_id => 1), 'complete');
 
-    $wrapper = entity_metadata_wrapper('commerce_order', $order);
+    $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
 
     // Recalculate discounts.
     commerce_cart_order_refresh($order);
 
     // Check if the discount was applied on the order total price.
-    $this->assertTrue($wrapper->commerce_order_total->amount->value() == 700, 'Fixed order discount is deducted correctly.');
+    $this->assertTrue($order_wrapper->commerce_order_total->amount->value() == 700, 'Fixed order discount is deducted correctly.');
 
     // Disable the discount.
     $discount->status = FALSE;
@@ -426,13 +427,13 @@ class CommerceDiscountTest extends CommerceDiscountTestBase {
 
     // Re-save the order.
     // Check if the discount was applied on the order total price.
-    $wrapper = entity_metadata_wrapper('commerce_order', $order);
-    $wrapper->save();
+    $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
+    $order_wrapper->save();
 
     // Recalculate discounts.
     commerce_cart_order_refresh($order);
 
-    $this->assertTrue($wrapper->commerce_order_total->amount->value() == 1000, 'Fixed order discount is removed when it\'s not appliable.');
+    $this->assertTrue($order_wrapper->commerce_order_total->amount->value() == 1000, 'Fixed order discount is removed when it\'s not appliable.');
   }
 
   /**
@@ -444,13 +445,13 @@ class CommerceDiscountTest extends CommerceDiscountTestBase {
     $discount = $this->createDiscount('order_discount', 'percentage', 5);
     // Create a completed order.
     $order = $this->createDummyOrder($this->store_customer->uid, array($this->product->product_id => 1), 'complete');
-    $wrapper = entity_metadata_wrapper('commerce_order', $order);
+    $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
 
     // Recalculate discounts.
     commerce_cart_order_refresh($order);
 
     // Check if the discount was applied on the order total price.
-    $this->assertTrue($wrapper->commerce_order_total->amount->value() == 950, 'Percentage order discount is deducted correctly.');
+    $this->assertTrue($order_wrapper->commerce_order_total->amount->value() == 950, 'Percentage order discount is deducted correctly.');
 
     // Disable the discount.
     $discount->status = FALSE;
@@ -458,13 +459,13 @@ class CommerceDiscountTest extends CommerceDiscountTestBase {
 
     // Re-save the order.
     // Check if the discount was applied on the order total price.
-    $wrapper = entity_metadata_wrapper('commerce_order', $order);
-    $wrapper->save();
+    $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
+    $order_wrapper->save();
 
     // Recalculate discounts.
     commerce_cart_order_refresh($order);
 
-    $this->assertTrue($wrapper->commerce_order_total->amount->value() == 1000, "Percentage order discount is removed when it's not appliable.");
+    $this->assertTrue($order_wrapper->commerce_order_total->amount->value() == 1000, "Percentage order discount is removed when it's not appliable.");
   }
 
   /**
@@ -476,13 +477,13 @@ class CommerceDiscountTest extends CommerceDiscountTestBase {
     $discount = $this->createDiscount('product_discount', 'free_products', array($this->product->product_id));
     // Create a completed order.
     $order = $this->createDummyOrder($this->store_customer->uid, array($this->product->product_id => 1), 'complete');
-    $wrapper = entity_metadata_wrapper('commerce_order', $order);
+    $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
 
     // Recalculate discounts.
     commerce_cart_order_refresh($order);
 
     // Check if the discount was applied on the order total price.
-    $this->assertTrue($wrapper->commerce_order_total->amount->value() == 0, 'Free Products order discount is deducted correctly.');
+    $this->assertTrue($order_wrapper->commerce_order_total->amount->value() == 0, 'Free Products order discount is deducted correctly.');
 
     // Disable the discount.
     $discount->status = FALSE;
@@ -490,13 +491,13 @@ class CommerceDiscountTest extends CommerceDiscountTestBase {
 
     // Re-save the order.
     // Check if the discount was applied on the order total price.
-    $wrapper = entity_metadata_wrapper('commerce_order', $order);
-    $wrapper->save();
+    $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
+    $order_wrapper->save();
 
     // Recalculate discounts.
     commerce_cart_order_refresh($order);
 
-    $this->assertTrue($wrapper->commerce_order_total->amount->value() == 1000, "Free Products order discount is removed when it's not appliable.");
+    $this->assertTrue($order_wrapper->commerce_order_total->amount->value() == 1000, "Free Products order discount is removed when it's not appliable.");
   }
 
   /**
@@ -507,10 +508,10 @@ class CommerceDiscountTest extends CommerceDiscountTestBase {
 
     // Create an order.
     $order = $this->createDummyOrder($this->store_customer->uid, array($this->product->product_id => 1), 'complete');
-    $wrapper = entity_metadata_wrapper('commerce_order', $order);
+    $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
 
     // Invoke line item price re-calculation.
-    $line_item = $wrapper->commerce_line_items->get(0)->value();
+    $line_item = $order_wrapper->commerce_line_items->get(0)->value();
     rules_invoke_event('commerce_product_calculate_sell_price', $line_item);
 
     // Check if the discount was added as a component to the line item.
@@ -528,10 +529,10 @@ class CommerceDiscountTest extends CommerceDiscountTestBase {
 
     // Create an order.
     $order = $this->createDummyOrder($this->store_customer->uid, array($this->product->product_id => 1), 'complete');
-    $wrapper = entity_metadata_wrapper('commerce_order', $order);
+    $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
 
     // Invoke line item price re-calculation.
-    $line_item = $wrapper->commerce_line_items->get(0)->value();
+    $line_item = $order_wrapper->commerce_line_items->get(0)->value();
     rules_invoke_event('commerce_product_calculate_sell_price', $line_item);
 
     // Check if the discount was added as a component to the line item.
@@ -580,13 +581,13 @@ class CommerceDiscountTest extends CommerceDiscountTestBase {
 
     // Recalculate discounts.
     commerce_cart_order_refresh($order);
-    $wrapper = entity_metadata_wrapper('commerce_order', $order);
+    $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
 
-    $this->assertTrue($wrapper->commerce_discounts->count() == 2, '2 discounts are listed as applied on the order.');
-    $this->assertTrue($wrapper->commerce_order_total->amount->value() == 500, 'Two fixed order discounts are applied on the total price.');
-    $this->assertTrue($wrapper->commerce_line_items->count() == 3, 'An order with one product and two fixed order discounts has three line items.');
-    $wrapper->save();
-    $this->assertTrue($wrapper->commerce_line_items->count() == 3, 'After updating the order it still has three line items.');
+    $this->assertTrue($order_wrapper->commerce_discounts->count() == 2, '2 discounts are listed as applied on the order.');
+    $this->assertTrue($order_wrapper->commerce_order_total->amount->value() == 500, 'Two fixed order discounts are applied on the total price.');
+    $this->assertTrue($order_wrapper->commerce_line_items->count() == 3, 'An order with one product and two fixed order discounts has three line items.');
+    $order_wrapper->save();
+    $this->assertTrue($order_wrapper->commerce_line_items->count() == 3, 'After updating the order it still has three line items.');
   }
 
 }
