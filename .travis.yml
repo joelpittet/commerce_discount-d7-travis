@@ -1,9 +1,9 @@
 language: php
 
-# faster builds on new travis setup not using sudo
+# Faster builds on new travis setup not using sudo.
 sudo: false
 
-# cache vendor dirs
+# Cache vendor dirs.
 cache:
   directories:
 #    - cubrid/9.3.0
@@ -21,6 +21,8 @@ mysql:
   username: root
   encoding: utf8
 
+before_install:
+  - composer self-update
 
 install:
   - "mysql -e 'create database drupal;'"
@@ -36,7 +38,7 @@ install:
   - git clone --branch 7.x --depth 1 http://git.drupal.org/project/drupal.git drupal
   - cd drupal
 
-  # Disable sendmail (PHP)
+  # Disable sendmail (PHP).
   - if [[ "$TRAVIS_PHP_VERSION" = "php*" ]]; then echo sendmail_path=`which true` >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; fi
   # Disable sendmail (HHVM)
   - if [[ "$TRAVIS_PHP_VERSION" = "hhv*" ]]; then echo sendmail_path=`which true` >> /etc/hhvm/php.ini; fi
@@ -52,7 +54,7 @@ install:
 before_script:
   - ln -s $TESTDIR modules/commerce_discount
 
-  # Update drupal core
+  # Update drupal core.
   - drush si --db-url=mysql://root:@127.0.0.1/drupal --account-name=admin --account-pass=admin --site-mail=admin@example.com --site-name="Commerce" --yes
   - drush dl addressfield rules ctools entity views
   #- drush dl commerce commerce_customer_ui commerce_product_ui commerce_line_item_ui commerce_order_ui
@@ -68,3 +70,6 @@ before_script:
 script:
   # Run the tests
   - drush test-run --uri=http://127.0.0.1:8888 "Commerce discounts"
+
+notifications:
+  irc: irc.freenode.org#drupal-commerce
