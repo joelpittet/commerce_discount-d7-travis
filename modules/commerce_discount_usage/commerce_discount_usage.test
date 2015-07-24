@@ -124,23 +124,23 @@ class CommerceDiscountUsageTest extends CommerceDiscountTestBase {
 
     // Create an order.
     $order = $this->createDummyOrder($this->store_customer->uid, array($this->product->product_id => 1), 'complete');
-    $wrapper = entity_metadata_wrapper('commerce_order', $order);
+    $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
 
     // Recalculate discounts.
     commerce_cart_order_refresh($order);
 
     // Check if the discount was applied on the order total price.
-    $this->assertTrue($wrapper->commerce_order_total->amount->value() == 700, 'Fixed order discount is deducted correctly on the first use.');
+    $this->assertTrue($order_wrapper->commerce_order_total->amount->value() == 700, 'Fixed order discount is deducted correctly on the first use.');
 
     // Create another order to make sure the discount isn't applied again.
     $order = $this->createDummyOrder($this->store_customer2->uid, array($this->product->product_id => 1), 'complete');
-    $wrapper = entity_metadata_wrapper('commerce_order', $order);
+    $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
 
     // Recalculate discounts.
     commerce_cart_order_refresh($order);
 
     // Check if the discount was applied on the order total price.
-    $this->assertTrue($wrapper->commerce_order_total->amount->value() == 1000, 'Fixed order discount is ignored after maximal usage.');
+    $this->assertTrue($order_wrapper->commerce_order_total->amount->value() == 1000, 'Fixed order discount is ignored after maximal usage.');
   }
 
   /**

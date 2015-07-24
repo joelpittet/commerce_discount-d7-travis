@@ -473,8 +473,7 @@ class CommerceDiscountTest extends CommerceDiscountTestBase {
    * Test Free products order discounts.
    */
   public function testCommerceDiscountFreeProductsOrderDiscount() {
-    // Testing Free products discount.
-    // Create a Free products product discount.
+    // Create a 'free products' product discount.
     $discount = $this->createDiscount('product_discount', 'free_products', array($this->product->product_id));
     // Create a completed order.
     $order = $this->createDummyOrder($this->store_customer->uid, array($this->product->product_id => 1), 'complete');
