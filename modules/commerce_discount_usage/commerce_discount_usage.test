@@ -101,9 +101,9 @@ class CommerceDiscountUsageTest extends CommerceDiscountTestBase {
     );
     $this->drupalPost(NULL, $values, t('Save discount'));
 
-    // Load the discount and wrap it.
-    $discount = entity_load_single('commerce_discount', 1);
-    $discount_wrapper = entity_metadata_wrapper('commerce_discount', $discount);
+    // Load the discount from the database and wrap it.
+    $discounts = entity_load('commerce_discount', array($discount->discount_id), $conditions = array(), $reset = TRUE);
+    $discount_wrapper = entity_metadata_wrapper('commerce_discount', reset($discounts));
 
     // Check the usage fields of the stored discount.
     $this->assertEqual($discount_wrapper->discount_usage_per_person->value(), 0, 'Discount uses field is empty.');
