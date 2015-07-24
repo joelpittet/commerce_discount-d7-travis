@@ -234,7 +234,7 @@ class CommerceDiscountTest extends CommerceDiscountTestBase {
     $this->assertEqual($discount->label, $values['label'], 'Label stored correctly.');
     $this->assertEqual($discount->name, 'discount_' . $values['name'], 'Name stored correctly.');
     $this->assertEqual($discount->export_status, 1, 'Active stored correctly.');
-    $this->assertEqual($discount->component_title, $values['component_title'], 'Namfor customer stored correctly.');
+    $this->assertEqual($discount->component_title, $values['component_title'], 'Name for customer stored correctly.');
     $this->assertEqual($discount->status, 1, 'Enabled stored correctly.');
 
     $this->assertEqual($discount_wrapper->commerce_discount_offer->getBundle(), 'fixed_amount', 'Offer type stored correctly.');
@@ -433,7 +433,7 @@ class CommerceDiscountTest extends CommerceDiscountTestBase {
     // Recalculate discounts.
     commerce_cart_order_refresh($order);
 
-    $this->assertTrue($order_wrapper->commerce_order_total->amount->value() == 1000, 'Fixed order discount is removed when it\'s not appliable.');
+    $this->assertTrue($order_wrapper->commerce_order_total->amount->value() == 1000, 'Fixed order discount is removed when it\'s not applicable.');
   }
 
   /**
@@ -465,7 +465,7 @@ class CommerceDiscountTest extends CommerceDiscountTestBase {
     // Recalculate discounts.
     commerce_cart_order_refresh($order);
 
-    $this->assertTrue($order_wrapper->commerce_order_total->amount->value() == 1000, "Percentage order discount is removed when it's not appliable.");
+    $this->assertTrue($order_wrapper->commerce_order_total->amount->value() == 1000, "Percentage order discount is removed when it's not applicable.");
   }
 
   /**
@@ -497,7 +497,7 @@ class CommerceDiscountTest extends CommerceDiscountTestBase {
     // Recalculate discounts.
     commerce_cart_order_refresh($order);
 
-    $this->assertTrue($order_wrapper->commerce_order_total->amount->value() == 1000, "Free Products order discount is removed when it's not appliable.");
+    $this->assertTrue($order_wrapper->commerce_order_total->amount->value() == 1000, "Free Products order discount is removed when it's not applicable.");
   }
 
   /**
