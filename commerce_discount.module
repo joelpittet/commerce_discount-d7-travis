@@ -79,7 +79,7 @@ function commerce_discount_commerce_cart_order_refresh($wrapper) {
   commerce_line_item_delete_multiple($line_items_to_delete);
 
   // Re-add all applicable discount price components and/or line items.
-  rules_invoke_event('commerce_discount_order', $wrapper->value());
+  rules_invoke_event('commerce_discount_order', $wrapper);
 }
 
 /**

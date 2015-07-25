@@ -88,7 +88,7 @@ class CommerceDiscountTestBase extends CommerceBaseTestCase {
    * @param string $offer_type
    *   The discount offer type; Either 'fixed_amount' or 'percentage'.
    * @param int|array $amount
-   *   The discount offer amount or product ids array.
+   *   The discount offer amount, percentage or product ids array.
    * @param string $name
    *   Discount name - Optional.
    * @param string $component_title
