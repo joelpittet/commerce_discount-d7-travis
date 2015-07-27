@@ -412,7 +412,7 @@ class CommerceDiscountTest extends CommerceDiscountTestBase {
     $discount = $this->createDiscount('order_discount', 'fixed_amount', 300);
 
     // Create an order.
-    $order = $this->createDummyOrder($this->store_customer->uid, array($this->product->product_id => 1), 'complete');
+    $order = $this->createDummyOrder($this->store_customer->uid, array($this->product->product_id => 1), 'completed');
 
     $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
 
@@ -445,7 +445,7 @@ class CommerceDiscountTest extends CommerceDiscountTestBase {
     // Create a percentage order discount of 5%.
     $discount = $this->createDiscount('order_discount', 'percentage', 5);
     // Create a completed order.
-    $order = $this->createDummyOrder($this->store_customer->uid, array($this->product->product_id => 1), 'complete');
+    $order = $this->createDummyOrder($this->store_customer->uid, array($this->product->product_id => 1), 'completed');
     $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
 
     // Recalculate discounts.
@@ -476,7 +476,7 @@ class CommerceDiscountTest extends CommerceDiscountTestBase {
     // Create a 'free products' product discount.
     $discount = $this->createDiscount('order_discount', 'free_products', array($this->product->product_id));
     // Create a completed order.
-    $order = $this->createDummyOrder($this->store_customer->uid, array($this->product->product_id => 1), 'complete');
+    $order = $this->createDummyOrder($this->store_customer->uid, array($this->product->product_id => 1), 'completed');
     // Recalculate discounts.
     commerce_cart_order_refresh($order);
     // Reload order to prevent stale entity metadata wrapper cache.
@@ -504,7 +504,7 @@ class CommerceDiscountTest extends CommerceDiscountTestBase {
     $this->createDiscount('product_discount', 'fixed_amount', 300);
 
     // Create an order.
-    $order = $this->createDummyOrder($this->store_customer->uid, array($this->product->product_id => 1), 'complete');
+    $order = $this->createDummyOrder($this->store_customer->uid, array($this->product->product_id => 1), 'completed');
     $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
 
     // Invoke line item price re-calculation.
@@ -525,7 +525,7 @@ class CommerceDiscountTest extends CommerceDiscountTestBase {
     $this->createDiscount('product_discount', 'percentage', 5);
 
     // Create an order.
-    $order = $this->createDummyOrder($this->store_customer->uid, array($this->product->product_id => 1), 'complete');
+    $order = $this->createDummyOrder($this->store_customer->uid, array($this->product->product_id => 1), 'completed');
     $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
 
     // Invoke line item price re-calculation.
@@ -574,7 +574,7 @@ class CommerceDiscountTest extends CommerceDiscountTestBase {
     $this->createDiscount('order_discount', 'fixed_amount', 200, 'of2');
 
     // Create an order.
-    $order = $this->createDummyOrder($this->store_customer->uid, array($this->product->product_id => 1), 'complete');
+    $order = $this->createDummyOrder($this->store_customer->uid, array($this->product->product_id => 1), 'completed');
 
     // Recalculate discounts.
     commerce_cart_order_refresh($order);
