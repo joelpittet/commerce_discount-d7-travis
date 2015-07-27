@@ -155,7 +155,7 @@ class CommerceDiscountDateTest extends CommerceDiscountTestBase {
     $this->createDateDiscount('order_discount', 'fixed_amount', 300, $start_time, $end_time);
 
     // Create an order.
-    $order = $this->createDummyOrder($this->store_customer->uid, array($this->product->product_id => 1), 'complete');
+    $order = $this->createDummyOrder($this->store_customer->uid, array($this->product->product_id => 1), 'completed');
     $wrapper = entity_metadata_wrapper('commerce_order', $order);
 
     // Recalculate discounts.
@@ -179,7 +179,7 @@ class CommerceDiscountDateTest extends CommerceDiscountTestBase {
     $this->createDateDiscount('order_discount', 'fixed_amount', 300, $start_time, $end_time);
 
     // Create an order.
-    $order = $this->createDummyOrder($this->store_customer->uid, array($this->product->product_id => 1), 'complete');
+    $order = $this->createDummyOrder($this->store_customer->uid, array($this->product->product_id => 1), 'completed');
     $wrapper = entity_metadata_wrapper('commerce_order', $order);
     // Check if the discount was applied on the order total price.
     $this->assertTrue($wrapper->commerce_order_total->amount->value() == 1000, 'Order discount is ignored when out of time frame.');
@@ -196,7 +196,7 @@ class CommerceDiscountDateTest extends CommerceDiscountTestBase {
     $this->createDateDiscount('product_discount', 'fixed_amount', 300, $start_time, $end_time);
 
     // Create an order.
-    $order = $this->createDummyOrder($this->store_customer->uid, array($this->product->product_id => 1), 'complete');
+    $order = $this->createDummyOrder($this->store_customer->uid, array($this->product->product_id => 1), 'completed');
     $wrapper = entity_metadata_wrapper('commerce_order', $order);
     // Invoke line item price re-calculation.
     $line_item = $wrapper->commerce_line_items->get(0)->value();
@@ -218,7 +218,7 @@ class CommerceDiscountDateTest extends CommerceDiscountTestBase {
     $this->createDateDiscount('product_discount', 'fixed_amount', 300, $start_time, $end_time);
 
     // Create an order.
-    $order = $this->createDummyOrder($this->store_customer->uid, array($this->product->product_id => 1), 'complete');
+    $order = $this->createDummyOrder($this->store_customer->uid, array($this->product->product_id => 1), 'completed');
     $wrapper = entity_metadata_wrapper('commerce_order', $order);
     // Invoke line item price re-calculation.
     $line_item = $wrapper->commerce_line_items->get(0)->value();
