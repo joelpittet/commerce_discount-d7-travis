@@ -53,7 +53,7 @@ function _commerce_discount_usage_install_helper() {
           'weight' => 100,
         ),
         'settings' => array(
-          'min' => 0
+          'min' => 0,
         )
       );
       field_create_instance($instance);
