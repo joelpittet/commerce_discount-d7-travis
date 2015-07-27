@@ -478,7 +478,9 @@ class CommerceDiscountTest extends CommerceDiscountTestBase {
     // Create a completed order.
     $order = $this->createDummyOrder($this->store_customer->uid, array($this->product->product_id => 1), 'complete');
     // Recalculate discounts.
-    $order_wrapper = commerce_cart_order_refresh($order);
+    commerce_cart_order_refresh($order);
+    // Reload order to prevent stale entity metadata wrapper cache.
+    $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
 
     // Check if the discount was applied on the order total price.
     $this->assertEqual($order_wrapper->commerce_order_total->amount->value(), 1000, "Free Products order discount has the price of only one product.");
