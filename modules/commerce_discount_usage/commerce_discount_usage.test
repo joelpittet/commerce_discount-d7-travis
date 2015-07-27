@@ -153,10 +153,10 @@ class CommerceDiscountUsageTest extends CommerceDiscountTestBase {
     $this->createUsageDiscount('order_discount', 'percentage', 5, 1);
     // Create a completed order.
     $order = $this->createDummyOrder($this->store_customer->uid, array($this->product->product_id => 1), 'completed');
-    $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
 
     // Recalculate discounts.
     commerce_cart_order_refresh($order);
+    $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
 
     // Check if the discount was applied on the order total price.
     $this->assertTrue($order_wrapper->commerce_order_total->amount->value() == 950, 'Percentage order discount is deducted correctly.');
@@ -180,32 +180,26 @@ class CommerceDiscountUsageTest extends CommerceDiscountTestBase {
 
     // Create an order.
     $order = $this->createDummyOrder($this->store_customer->uid, array($this->product->product_id => 1), 'completed');
+
+    // Recalculate discounts.
+    commerce_cart_order_refresh($order);
     $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
-    // Invoke line item price re-calculation.
-    $line_item = $order_wrapper->commerce_line_items->get(0)->value();
-    rules_invoke_event('commerce_product_calculate_sell_price', $line_item);
+
     // Check if the discount was added as a component to the line item.
-    $line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $line_item);
-    $price_data = $line_item_wrapper->commerce_unit_price->data->value();
-    $this->assertTrue($price_data['components'][1]['price']['amount'] == -300, 'Fixed product discount is added as a price component to the line item.');
+    $price = commerce_price_wrapper_value($order_wrapper->commerce_line_items->get(0), 'commerce_unit_price');
+    $this->assertTrue($price['data']['components'][1]['price']['amount'] == -300, 'Fixed product discount is added as a price component to the line item.');
     commerce_order_save($order);
 
     // Create another order to make sure the discount isn't applied again.
     $order = $this->createDummyOrder($this->store_customer2->uid, array($this->product->product_id => 1), 'completed');
-    $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
 
-    // Invoke line item price re-calculation.
-    $line_item = $order_wrapper->commerce_line_items->get(0)->value();
-    rules_invoke_event('commerce_product_calculate_sell_price', $line_item);
     // Recalculate discounts.
     commerce_cart_order_refresh($order);
     $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
-    $line_item = $order_wrapper->commerce_line_items->get(0)->value();
 
     // Check if the discount was added as a component to the line item.
-    $line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $line_item->line_item_id);
-    $price_data = $line_item_wrapper->commerce_unit_price->data->value();
-    $this->assertTrue(count($price_data['components']) === 1, 'Fixed product discount is ignored after maximal usage.');
+    $price = commerce_price_wrapper_value($order_wrapper->commerce_line_items->get(0), 'commerce_unit_price');
+    $this->assertTrue(count($price['data']['components']) === 1, 'Fixed product discount is ignored after maximal usage.');
   }
 
   /**
@@ -216,34 +210,26 @@ class CommerceDiscountUsageTest extends CommerceDiscountTestBase {
 
     // Create an order.
     $order = $this->createDummyOrder($this->store_customer->uid, array($this->product->product_id => 1), 'completed');
-    $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
 
-    // Invoke line item price re-calculation.
-    $line_item = $order_wrapper->commerce_line_items->get(0)->value();
-    rules_invoke_event('commerce_product_calculate_sell_price', $line_item);
     // Recalculate discounts.
     commerce_cart_order_refresh($order);
+    $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
 
     // Check if the discount was added as a component to the line item.
-    $line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $line_item);
-    $price_data = $line_item_wrapper->commerce_unit_price->data->value();
-    $this->assertEqual($price_data['components'][1]['price']['amount'], -50, 'Percentage product discount is added as a price component to the line item.');
+    $price = commerce_price_wrapper_value($order_wrapper->commerce_line_items->get(0), 'commerce_unit_price');
+    $this->assertEqual($price['data']['components'][1]['price']['amount'], -50, 'Percentage product discount is added as a price component to the line item.');
     commerce_order_save($order);
 
     // Create another order to make sure the discount isn't applied again.
     $order = $this->createDummyOrder($this->store_customer2->uid, array($this->product->product_id => 1), 'completed');
-    $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
 
-    // Invoke line item price re-calculation.
-    $line_item = $order_wrapper->commerce_line_items->get(0)->value();
-    rules_invoke_event('commerce_product_calculate_sell_price', $line_item);
     // Recalculate discounts.
     commerce_cart_order_refresh($order);
+    $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
 
     // Check if the discount was added as a component to the line item.
-    $line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $line_item->line_item_id);
-    $price_data = $line_item_wrapper->commerce_unit_price->data->value();
-    $this->assertTrue(count($price_data['components']) === 1, 'Percentage product discount is ignored after maximal usage.');
+    $price = commerce_price_wrapper_value($order_wrapper->commerce_line_items->get(0), 'commerce_unit_price');
+    $this->assertTrue(count($price['data']['components']) === 1, 'Percentage product discount is ignored after maximal usage.');
   }
 
   /**
