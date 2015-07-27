@@ -28,4 +28,5 @@ files[] = includes/views/handlers/commerce_discount_handler_field_operations_dro
 ; Simple tests
 files[] = commerce_discount.test
 
+test_dependencies[] = addressfield
 test_dependencies[] = commerce_shipping
