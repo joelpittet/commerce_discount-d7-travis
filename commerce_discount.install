@@ -119,10 +119,9 @@ function commerce_discount_requirements($phase) {
 }
 
 /**
- * Helper function to define and create the required fields & instances in case
- * they don't exist already.
+ * Helper function to define and create the required fields & instances.
  *
- * Create the entityreference field on commerce discount, referencing
+ * Ensure creation of an entityreference field on commerce discount, referencing
  * commerce discount offer.
  * The instance will be added for every newly created bundle.
  */
@@ -132,12 +131,9 @@ function commerce_discount_install_helper() {
 
   // Clear field info cache, so entity reference, inline_conditions and
   // commerce_product_reference field types can be used.
-  if (
-    !isset($field_types['entityreference'])
-    ||
-    !isset($field_types['inline_conditions'])
-    ||
-    !isset($field_types['commerce_product_reference'])
+  if (!isset($field_types['entityreference'])
+    || !isset($field_types['inline_conditions'])
+    || !isset($field_types['commerce_product_reference'])
   ) {
     field_info_cache_clear();
   }
@@ -437,7 +433,9 @@ function commerce_discount_uninstall() {
 }
 
 /**
- * #1875524 Update the widget type of field commerce_discount_offer.
+ * Update the widget type of field commerce_discount_offer.
+ *
+ * @see https://drupal.org/node/1875524
  */
 function commerce_discount_update_7101() {
   $instances = field_info_instances('commerce_discount');
@@ -452,13 +450,21 @@ function commerce_discount_update_7101() {
 }
 
 /**
- * #2034685 Discount component price names.
+ * Discount component price names.
+ *
+ * @see https://drupal.org/node/2034685
  *
  * Add a new column in commerce_discount table in order to display customized
  * component price title for a discount.
  */
 function commerce_discount_update_7102() {
-  db_add_field('commerce_discount', 'component_title', array('description' => 'The component price title', 'type' => 'varchar', 'length' => 255, 'not null' => FALSE));
+  $field_schema = array(
+    'description' => 'The component price title',
+    'type' => 'varchar',
+    'length' => 255,
+    'not null' => FALSE,
+  );
+  db_add_field('commerce_discount', 'component_title', $field_schema);
 }
 
 /**
@@ -469,12 +475,26 @@ function commerce_discount_update_7103() {
 }
 
 /**
- * #1854108 Changes to commerce_discount schema.
+ * Changes to commerce_discount schema.
+ *
+ * @see http://drupal.org/node/1854108
  */
 function commerce_discount_update_7104() {
   // Rename "enabled" to "status" and "status" to "export_status".
-  db_change_field('commerce_discount', 'status', 'export_status', array('type' => 'int', 'not null' => TRUE, 'default' => 0x01, 'size' => 'tiny', 'description' => 'The exportable status of the entity.'));
-  db_change_field('commerce_discount', 'enabled', 'status', array('type' => 'int', 'not null' => TRUE, 'default' => 1, 'size' => 'tiny', 'description' => 'Whether the discount is active.'));
+  db_change_field('commerce_discount', 'status', 'export_status', array(
+    'type' => 'int',
+    'not null' => TRUE,
+    'default' => 0x01,
+    'size' => 'tiny',
+    'description' => 'The exportable status of the entity.',
+  ));
+  db_change_field('commerce_discount', 'enabled', 'status', array(
+    'type' => 'int',
+    'not null' => TRUE,
+    'default' => 1,
+    'size' => 'tiny',
+    'description' => 'Whether the discount is active.',
+  ));
   // Rebuild the schema.
   drupal_get_complete_schema(TRUE);
 }

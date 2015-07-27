@@ -659,7 +659,7 @@ function commerce_discount_percentage(EntityDrupalWrapper $wrapper, $discount_na
     case 'commerce_line_item':
       // Check if the line item is configured in the settings to apply the
       // discount.
-      if (empty($line_item_types[$wrapper->type->value()])) {
+      if (empty($line_item_types[$wrapper->getBundle()])) {
         return;
       }
 

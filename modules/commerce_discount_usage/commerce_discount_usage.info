@@ -4,7 +4,10 @@ package = Commerce (contrib)
 core = 7.x
 
 ; Dependencies
+dependencies[] = commerce
 dependencies[] = commerce_discount
+dependencies[] = entity
+dependencies[] = commerce
 
 ; Views handlers
 files[] = includes/views/handlers/commerce_discount_usage_handler_field_commerce_discount_analytics.inc
